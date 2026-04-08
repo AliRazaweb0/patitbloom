@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Footer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #faf9f7;
+    }
+
+    /* ========== FOOTER SECTION ========== */
+    .footer {
+      background-color: #f5f3f0;
+      padding: 60px 40px 30px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    /* Brand Column */
+    .footer-brand {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: #3d3d3d;
+      margin-bottom: 15px;
+    }
+
+    .footer-tagline {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #888;
+      font-weight: 400;
+    }
+
+    /* Links Columns */
+    .footer-links {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .footer-heading {
+      font-size: 13px;
+      font-weight: 500;
+      color: #3d3d3d;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      font-size: 14px;
+      color: #888;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #3d3d3d;
+    }
+
+    /* Copyright */
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 50px auto 0;
+      padding-top: 30px;
+      border-top: 1px solid #e5e0dc;
+      text-align: center;
+    }
+
+    .footer-copyright {
+      font-size: 13px;
+      color: #999;
+      font-weight: 400;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .footer {
+        padding: 40px 20px 30px;
+      }
+
+      .footer-container {
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .footer-brand {
+        min-width: 100%;
+      }
+
+      .footer-links {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== FOOTER SECTION ========== -->
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- Brand Column -->
+      <div class="footer-brand">
+        <h3 class="footer-logo">petitbloom</h3>
+        <p class="footer-tagline">Gentle, organic clothing for your little ones.<br>Made with love, designed for comfort.</p>
+      </div>
+
+      <!-- Shop Links -->
+      <div class="footer-links">
+        <h4 class="footer-heading">SHOP</h4>
+        <ul>
+          <li><a href="#">Newborn</a></li>
+          <li><a href="#">Toddler</a></li>
+          <li><a href="#">Essentials</a></li>
+        </ul>
+      </div>
+
+      <!-- Company Links -->
+      <div class="footer-links">
+        <h4 class="footer-heading">COMPANY</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Sustainability</a></li>
+        </ul>
+      </div>
+
+      <!-- Support Links -->
+      <div class="footer-links">
+        <h4 class="footer-heading">SUPPORT</h4>
+        <ul>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+      <p class="footer-copyright">© 2026 petitbloom. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
