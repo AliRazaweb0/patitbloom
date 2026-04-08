@@ -251,7 +251,11 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 25px;
     }
-
+.collection-grid, .products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+  gap: 25px;
+}
     /* Card */
     .card {
       position: relative;
