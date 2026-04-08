@@ -44,6 +44,9 @@ svg {
   display: block;
   max-width: 100%;
 }
+header-actions{
+  margin-top: 19px;
+}
 
 img {
   width: 100%;
