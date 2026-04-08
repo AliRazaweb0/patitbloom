@@ -66,10 +66,7 @@
 
   <div class="cart">
   {% comment %} {% render 'cart-icon-bubble' %} {% endcomment %}
-  <form action="/cart/add" method="post" enctype="multipart/form-data" class="product-form">
-  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-  <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-</form>
+
 </div>
 </nav>
   <!-- End Nav bar -->
