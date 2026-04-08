@@ -65,8 +65,12 @@
   </ul>
 
   <div class="cart">
-    {% render 'cart-icon-bubble' %}
-  </div>
+  {% render 'cart-icon-bubble' %}
+  <form action="/cart/add" method="post" enctype="multipart/form-data" class="product-form">
+  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+  <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+</form>
+</div>
 </nav>
   <!-- End Nav bar -->
   {% schema %}
