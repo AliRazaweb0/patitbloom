@@ -332,21 +332,17 @@
       margin-bottom: 50px;
     }
 
-    .products-grid {
-      display: flex;
-      justify-content: center;
-      gap: 25px;
-      margin-bottom: 50px;
-      flex-wrap: wrap;
-    }
+   .products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: space-between;
+}
 
-    .product-card {
-      width: 260px;
-      text-align: left;
-      text-decoration: none;
-      display: block;
-      transition: transform 0.3s ease;
-    }
+.product-card {
+  width: calc(25% - 18.75px); /* 4 per row with gap accounted for */
+  box-sizing: border-box;
+}
 
     .product-card:hover {
       transform: translateY(-5px);
