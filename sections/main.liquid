@@ -414,3 +414,250 @@
     }
 
 </style>
+ <section class="hero">
+    <img src="your-image.png" alt="baby" class="hero-img" />
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+      <p class="subheading">SPRING COLLECTION 2026</p>
+
+      <h1>
+        Gentle Comfort <br />
+        for Little Ones
+      </h1>
+
+      <p class="description">
+        Thoughtfully crafted organic clothing that wraps your baby in softness from day one.
+      </p>
+
+      <div class="buttons">
+        <a href="#" class="btn primary">Shop Collection</a>
+        <a href="#" class="btn secondary">Our Story</a>
+      </div>
+    </div>
+  </section>
+  <!-- End main flex -->
+
+
+  <!-- collections cards-->
+
+  <section class="collection-section">
+    <div class="container">
+
+      <div class="section-header">
+        <h2>Shop by Category</h2>
+        <p>Find the perfect pieces for every stage</p>
+      </div>
+
+      <div class="collection-grid">
+
+        <!-- Card 1 -->
+        <a href="product.html">
+          <div class="card">
+            <img src="img1.jpg" alt="">
+            <div class="card-overlay">
+              <h3>Newborn</h3>
+              <span>0–6 months</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="product.html">
+          <div class="card">
+            <img src="img2.jpg" alt="">
+            <div class="card-overlay">
+              <h3>Toddler</h3>
+              <span>1–3 years</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="product.html">
+          <div class="card">
+            <img src="img3.jpg" alt="">
+            <div class="card-overlay">
+              <h3>Essentials</h3>
+              <span>Must-haves</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+  </section>
+  <!-- end collection cards -->
+
+
+
+  <!-- All view product section --> 
+  <section class="bestsellers-section">
+    <div class="section-header">
+      <h2>Bestsellers</h2>
+      <p>Loved by parents, adored by babies</p>
+    </div>
+
+    <div class="products-grid">
+      <!-- Product 1 -->
+      <a href="#" class="product-card">
+        <div class="image-wrapper">
+          <img src="/images/imgs (59).jpg" alt="Organic Cotton Onesie">
+        </div>
+        <p class="product-name">Organic Cotton Onesie</p>
+        <p class="product-price">$34</p>
+      </a>
+
+      <!-- Product 2 -->
+      <a href="#" class="product-card">
+        <div class="image-wrapper">
+          <img src="/images/imgs (60).jpg" alt="Cloud Sleep Sack">
+        </div>
+        <p class="product-name">Cloud Sleep Sack</p>
+        <p class="product-price">$48</p>
+      </a>
+
+      <!-- Product 3 -->
+      <a href="#" class="product-card">
+        <div class="image-wrapper">
+          <img src="/images/imgs (61).jpg" alt="Knitted Baby Booties">
+        </div>
+        <p class="product-name">Knitted Baby Booties</p>
+        <p class="product-price">$22</p>
+      </a>
+
+      <!-- Product 4 -->
+      <a href="#" class="product-card">
+        <div class="image-wrapper">
+          <img src="/images/imgs (62).jpg" alt="Muslin Swaddle Set">
+        </div>
+        <p class="product-name">Muslin Swaddle Set</p>
+        <p class="product-price">$38</p>
+      </a>
+    </div>
+
+    <a href="#" class="view-all-btn">View All Products</a>
+  </section>
+{% schema %}
+{
+  "name": "Hero & Collections",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image"
+    },
+    {
+      "type": "text",
+      "id": "hero_subheading",
+      "label": "Hero Subheading",
+      "default": "SPRING COLLECTION 2026"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero Heading",
+      "default": "Gentle Comfort for Little Ones"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_description",
+      "label": "Hero Description",
+      "default": "Thoughtfully crafted organic clothing that wraps your baby in softness from day one."
+    },
+    {
+      "type": "url",
+      "id": "hero_primary_btn_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "hero_primary_btn_text",
+      "label": "Primary Button Text",
+      "default": "Shop Collection"
+    },
+    {
+      "type": "url",
+      "id": "hero_secondary_btn_link",
+      "label": "Secondary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "hero_secondary_btn_text",
+      "label": "Secondary Button Text",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Products Link"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Button Text",
+      "default": "View All Products"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "bestseller",
+      "name": "Bestseller Product",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product Image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Product Name"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Product Price"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Product Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Hero + Collections"
+    }
+  ]
+}
+{% endschema %}
