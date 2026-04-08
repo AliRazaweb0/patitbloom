@@ -47,6 +47,10 @@ svg {
 header-actions{
   gap: 19px;
 }
+header-actions__cart-icon{
+  font-size:30px;
+  margin-top:5px;
+}
 
 img {
   width: 100%;
