@@ -60,7 +60,7 @@
     }
   }</style>
  
- <nav class="navbar">
+<nav class="navbar">
   <div class="logo">petitbloom</div>
 
   <ul class="nav-links">
@@ -70,18 +70,22 @@
     <li><a href="#">Contact</a></li>
   </ul>
 
-  <div class="cart">
-  {%- comment -%}
-    {%- render 'cart-icon-bubble' -%}
-  {%- endcomment -%}
+  <!-- Wrapper for Cart & Account icons -->
+  <div class="actions">
+    <div class="cart">
+      {%- comment -%}
+        {%- render 'cart-icon-bubble' -%}
+      {%- endcomment -%}
+    </div>
 
-  {%- render 'header-actions', 
-      customer_account_menu: section.settings.customer_account_menu, 
-      display_style: section.settings.actions_display_style, 
-      section: section -%}
-</div>
-</nav>
-  <!-- End Nav bar -->
+    <div class="account">
+      {%- render 'header-actions', 
+          customer_account_menu: section.settings.customer_account_menu, 
+          display_style: section.settings.actions_display_style, 
+          section: section -%}
+    </div>
+  </div>
+</nav>  <!-- End Nav bar -->
   {% schema %}
 {
   "name": "navbar",
