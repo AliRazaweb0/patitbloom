@@ -46,7 +46,7 @@ svg {
 }
 header-actions{
   margin-top: 19px;
-  visibility: hidden;
+  gap: 19px;
 }
 
 img {
