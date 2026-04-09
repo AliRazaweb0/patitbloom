@@ -609,6 +609,27 @@
     <a href="/collections/all" class="view-all-btn">View All Products</a>
   {% endunless %}
 </section>
+<script>
+<div id="product-grid" class="products-grid">
+  {% for product in collections.all.products limit: 4 %}
+    <!-- card -->
+  {% endfor %}
+</div>
+
+<div id="all-products" class="products-grid" style="display: none;">
+  {% for product in collections.all.products offset: 4 %}
+    <!-- card -->
+  {% endfor %}
+</div>
+
+<button onclick="showAllProducts()" class="view-all-btn" id="view-btn">View All Products</button>
+
+<script>
+function showAllProducts() {
+  document.getElementById('all-products').style.display = 'grid';
+  document.getElementById('view-btn').style.display = 'none';
+}
+</script>
 
 {% schema %}
 {
