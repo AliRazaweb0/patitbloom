@@ -582,19 +582,9 @@
     <p>Loved by parents, adored by babies</p>
   </div>
 
-  <div class="products-grid">
-    {% assign show_all = false %}
-    {% if request.path contains 'all-products' or template == 'page.all-products' %}
-      {% assign show_all = true %}
-    {% endif %}
-
-    {% if show_all %}
-      {% assign products_to_show = collections.all.products %}
-    {% else %}
-      {% assign products_to_show = collections.all.products | limit: 4 %}
-    {% endif %}
-
-    {% for product in products_to_show %}
+  <!-- Pehle 4 Products (Hamesha Visible) -->
+  <div class="products-grid" id="initial-products">
+    {% for product in collections.all.products limit: 4 %}
       <a href="{{ product.url }}" class="product-card">
         <div class="image-wrapper">
           <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}">
@@ -605,25 +595,21 @@
     {% endfor %}
   </div>
 
-  {% unless show_all %}
-    <a href="/collections/all" class="view-all-btn">View All Products</a>
-  {% endunless %}
+  <!-- Baaki Products (Hidden by default) -->
+  <div class="products-grid hidden-products" id="more-products" style="display: none;">
+    {% for product in collections.all.products offset: 4 %}
+      <a href="{{ product.url }}" class="product-card">
+        <div class="image-wrapper">
+          <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}">
+        </div>
+        <p class="product-name">{{ product.title }}</p>
+        <p class="product-price">{{ product.price | money }}</p>
+      </a>
+    {% endfor %}
+  </div>
+
+  <button onclick="showAllProducts()" class="view-all-btn" id="view-btn">View All Products</button>
 </section>
-<script>
-<div id="product-grid" class="products-grid">
-  {% for product in collections.all.products limit: 4 %}
-    <!-- card -->
-  {% endfor %}
-</div>
-
-<div id="all-products" class="products-grid" style="display: none;">
-  {% for product in collections.all.products offset: 4 %}
-    <!-- card -->
-  {% endfor %}
-</div>
-
-<button onclick="showAllProducts()" class="view-all-btn" id="view-btn">View All Products</button>
-
 <script>
 function showAllProducts() {
   document.getElementById('all-products').style.display = 'grid';
