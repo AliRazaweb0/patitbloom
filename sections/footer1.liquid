@@ -79,9 +79,53 @@
     </section>
      <!-- ========== FOOTER SECTION ========== -->
   <footer class="footer">
+    <div class="footer-container">
+      <!-- Brand Column -->
+      <div class="footer-brand">
+        <h3 class="footer-logo">petitbloom</h3>
+        <p class="footer-tagline">Gentle, organic clothing for your little ones.<br>Made with love, designed for comfort.</p>
+      </div>
+
+      <!-- Shop Links -->
+      <div class="footer-links">
+        <h4 class="footer-heading">SHOP</h4>
+        <ul>
+          <li><a href="#">Newborn</a></li>
+          <li><a href="#">Toddler</a></li>
+          <li><a href="#">Essentials</a></li>
+        </ul>
+      </div>
+
+      <!-- Company Links -->
+      <div class="footer-links">
+        <h4 class="footer-heading">COMPANY</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Sustainability</a></li>
+        </ul>
+      </div>
+
+      <!-- Support Links -->
+      <div class="footer-links">
+        <h4 class="footer-heading">SUPPORT</h4>
+        <ul>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+      <p class="footer-copyright">© 2026 petitbloom. All rights reserved.</p>
+    </div>
+  </footer>
+  <!-- sections/footer.liquid -->
+<footer class="footer">
   <div class="footer-container">
-    
-    <!-- Brand -->
+    <!-- Brand Column -->
     <div class="footer-brand">
       <h3 class="footer-logo">{{ section.settings.brand_name }}</h3>
       <p class="footer-tagline">{{ section.settings.brand_tagline }}</p>
@@ -89,40 +133,43 @@
 
     <!-- Shop Links -->
     <div class="footer-links">
-      <h4>SHOP</h4>
+      <h4 class="footer-heading">SHOP</h4>
       <ul>
-        {% for link in linklists[section.settings.shop_links].links %}
-          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% for link in section.settings.shop_links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
         {% endfor %}
       </ul>
     </div>
 
     <!-- Company Links -->
     <div class="footer-links">
-      <h4>COMPANY</h4>
+      <h4 class="footer-heading">COMPANY</h4>
       <ul>
-        {% for link in linklists[section.settings.company_links].links %}
-          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% for link in section.settings.company_links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
         {% endfor %}
       </ul>
     </div>
 
     <!-- Support Links -->
     <div class="footer-links">
-      <h4>SUPPORT</h4>
+      <h4 class="footer-heading">SUPPORT</h4>
       <ul>
-        {% for link in linklists[section.settings.support_links].links %}
-          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% for link in section.settings.support_links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
         {% endfor %}
       </ul>
     </div>
-
   </div>
 
+  <!-- Copyright -->
   <div class="footer-bottom">
-    <p>© {{ "now" | date: "%Y" }} {{ section.settings.brand_name }}</p>
+    <p class="footer-copyright">
+      © {{ "now" | date: "%Y" }} {{ section.settings.brand_name }}. All rights reserved.
+    </p>
   </div>
 </footer>
+
 {% schema %}
 {
   "name": "Footer",
@@ -136,23 +183,31 @@
     {
       "type": "textarea",
       "id": "brand_tagline",
-      "label": "Tagline",
-      "default": "Gentle, organic clothing for your little ones."
+      "label": "Brand Tagline",
+      "default": "Gentle, organic clothing for your little ones. Made with love, designed for comfort."
     },
     {
       "type": "link_list",
       "id": "shop_links",
-      "label": "Shop Links"
+      "label": "Shop Links",
+      "default": "main-menu"
     },
     {
       "type": "link_list",
       "id": "company_links",
-      "label": "Company Links"
+      "label": "Company Links",
+      "default": "main-menu"
     },
     {
       "type": "link_list",
       "id": "support_links",
-      "label": "Support Links"
+      "label": "Support Links",
+      "default": "main-menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default Footer"
     }
   ]
 }
