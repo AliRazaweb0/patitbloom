@@ -631,7 +631,10 @@
 </section>
 <script>
 function showAllProducts() {
-  document.getElementById('all-products').style.display = 'grid';
+  // Baaki products show karo
+  document.getElementById('more-products').classList.add('show-products');
+  
+  // Button hide karo
   document.getElementById('view-btn').style.display = 'none';
 }
 </script>
