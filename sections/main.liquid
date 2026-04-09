@@ -216,90 +216,36 @@
     }
 
     /* Section */
-    .collection-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-  }
+ <section class="collection-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Shop by Category</h2>
+      <p>Find the perfect pieces for every stage</p>
+    </div>
 
-  @media (max-width: 1024px) {
-    .collection-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .collection-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  /* Card */
-  .card {
-    position: relative;
-    border-radius: 15px;
-    overflow: hidden;
-  }
-
-  /* Image Wrapper for Hover Effect */
-  .card-image-wrapper {
-    width: 100%;
-    height: 320px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  /* Image with Zoom Effect */
-  .card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
-  }
-
-  /* Hover Zoom Effect */
-  .card:hover img {
-    transform: scale(1.1);
-  }
-
-  /* Overlay Box */
-  .card-overlay {
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(8px);
-    border-radius: 12px;
-    padding: 15px 18px;
-    transition: transform 0.3s ease;
-  }
-
-  /* Slight lift effect on hover */
-  .card:hover .card-overlay {
-    transform: translateY(-5px);
-  }
-
-  /* Title */
-  .card-overlay h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    color: #2d2d2d;
-    margin-bottom: 5px;
-  }
-
-  /* Subtitle */
-  .card-overlay span {
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    color: #7a7a7a;
-  }
-
-  /* Remove underline from links */
-  .collection-grid a {
-    text-decoration: none;
-  }
+    <div class="collection-grid">
+      {% for collection in collections %}
+        {% unless collection.handle == 'frontpage' %}
+          <a href="{{ collection.url }}">
+            <div class="card">
+              <div class="card-image-wrapper">
+                {% if collection.image %}
+                  <img src="{{ collection.image | img_url: 'large' }}" alt="{{ collection.title }}">
+                {% else %}
+                  <img src="{{ collection.products.first.featured_image | img_url: 'large' }}" alt="{{ collection.title }}">
+                {% endif %}
+              </div>
+              <div class="card-overlay">
+                <h3>{{ collection.title }}</h3>
+                <span>{{ collection.description | strip_html | truncatewords: 3 }}</span>
+              </div>
+            </div>
+          </a>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
 
     /* Best Saler section */
     .bestsellers-section {
