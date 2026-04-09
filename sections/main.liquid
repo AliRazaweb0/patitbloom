@@ -1,0 +1,666 @@
+<style>
+    .hero {
+  position: relative;
+  min-height: 100vh;  /* minimum height */
+  height: 100vh;
+  width: 100vw;       /* full viewport width */
+}
+
+.hero-img {
+  position: absolute;
+  inset: 0;          /* top:0, right:0, bottom:0, left:0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+    /* Soft Overlay */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 248, 240, 0.75);
+      /* opacity effect */
+    }
+
+   .hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;      /* Vertical center */
+  justify-content: flex-start; /* Left align */
+}
+
+/* Background Image */
+.hero-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+/* Soft Overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 248, 240, 0.75);
+  z-index: 1;
+}
+
+/* Content - Left Side Middle */
+.hero-content {
+  position: relative;
+  max-width: 600px;
+  margin-left: 80px;        /* Left spacing */
+  z-index: 2;
+  /* Agar content ko vertically center karna ho to: */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Subheading */
+.subheading {
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 3px;
+  font-size: 14px;
+  color: #a67c52;
+  margin-bottom: 15px;
+  text-transform: uppercase; /* Optional: better look */
+}
+
+/* Heading */
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 64px;
+  line-height: 1.1;
+  color: #2d2d2d;
+  margin-bottom: 20px;
+}
+
+/* Description */
+.description {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: #6b6b6b;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;          /* Mobile pe wrap ho jayenge */
+}
+
+.btn {
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  text-decoration: none;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+/* Primary Button */
+.btn.primary {
+  background: #8b5e3c;
+  color: white;
+}
+
+.btn.primary:hover {
+  background: #6f4a2f;
+}
+
+/* Secondary Button */
+.btn.secondary {
+  background: #eee;
+  color: #333;
+}
+
+.btn.secondary:hover {
+  background: #ddd;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .hero-content {
+    margin-left: 20px;      /* Mobile pe kam spacing */
+    margin-right: 20px;
+    max-width: 100%;
+  }
+  
+  .hero h1 {
+    font-size: 42px;        /* Mobile pe chhota font */
+  }
+}
+
+    /* =========================
+   Tablet (≤ 1024px)
+========================= */
+    @media (max-width: 1024px) {
+
+      /* Navbar */
+      .nav-container {
+        padding: 12px 20px;
+      }
+
+      .navbar nav a {
+        margin-left: 15px;
+        font-size: 14px;
+      }
+
+      /* Hero */
+      .hero {
+        height: 80vh;
+      }
+
+      .hero-content {
+        margin-left: 40px;
+        max-width: 500px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .description {
+        font-size: 16px;
+      }
+    }
+
+
+    /* =========================
+ Mobile (≤ 768px)
+========================= */
+    @media (max-width: 768px) {
+
+      /* Navbar */
+      .nav-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .navbar nav {
+        display: flex;
+        gap: 15px;
+      }
+
+      .navbar nav a {
+        margin: 0;
+        font-size: 13px;
+      }
+
+      /* Hero */
+      .hero {
+        height: 100%;
+        width:100%
+        padding: 80px 20px;
+        justify-content: center;
+        text-align: center;
+      }
+
+
+      .hero-content {
+        margin: 0;
+        max-width: 100%;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .subheading {
+        font-size: 12px;
+        letter-spacing: 2px;
+      }
+
+      .description {
+        font-size: 15px;
+      }
+
+      .buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 12px 22px;
+        font-size: 14px;
+      }
+    }
+
+
+    /* =========================
+ Small Mobile (≤ 480px)
+========================= */
+    @media (max-width: 480px) {
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .description {
+        font-size: 14px;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+    }
+
+    /* Section */
+         .hero {
+        height: auto;
+        padding: 80px 20px;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .hero-content {
+        margin: 0;
+        max-width: 100%;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .subheading {
+        font-size: 12px;
+        letter-spacing: 2px;
+      }
+
+      .description {
+        font-size: 15px;
+      }
+
+      .buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 12px 22px;
+        font-size: 14px;
+      }
+    }
+
+
+    /* =========================
+ Small Mobile (≤ 480px)
+========================= */
+    @media (max-width: 480px) {
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .description {
+        font-size: 14px;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+    }
+
+    /* Section */
+    .collection-section {
+      padding: 80px 15px;
+      /* top bottom + left right max 15px */
+      background: #f6f3ef;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* Header */
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: #2d2d2d;
+      margin-bottom: 10px;
+    }
+
+    .section-header p {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #8a8a8a;
+    }
+
+    /* Grid */
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    /* Card */
+    .card {
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    /* Image */
+    .card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Overlay Box */
+    .card-overlay {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 12px;
+      padding: 15px 18px;
+    }
+
+    /* Title */
+    .card-overlay h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: #2d2d2d;
+      margin-bottom: 5px;
+    }
+
+    /* Subtitle */
+    .card-overlay span {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #7a7a7a;
+
+    }
+
+
+    .bestsellers-section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .section-header {
+    margin-bottom: 50px;
+  }
+
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: #2d2d2d;
+    margin-bottom: 10px;
+  }
+
+  .section-header p {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #6b6b6b;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-bottom: 20px;
+  }
+
+  /* Hidden products grid */
+  .hidden-products {
+    display: none;
+    margin-top: 25px;
+  }
+
+  @media (max-width: 1024px) {
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .product-card {
+    text-decoration: none;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .image-wrapper {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    background: #f5f5f5;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .product-card:hover .image-wrapper img {
+    transform: scale(1.05);
+  }
+
+  .product-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: #2d2d2d;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+
+  .product-price {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #8b5e3c;
+    font-weight: 600;
+  }
+
+  .view-all-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: transparent;
+    color: #2d2d2d;
+    border: 2px solid #2d2d2d;
+    border-radius: 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  .view-all-btn:hover {
+    background: #2d2d2d;
+    color: white;
+  }
+
+  /* Smooth show animation */
+  .show-products {
+    display: grid !important;
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+</style>
+ <section class="hero">
+    <img src="https://cdn.shopify.com/s/files/1/0998/9750/8121/files/imgs.jpg?v=1775724817" alt="baby" class="hero-img" />
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+      <p class="subheading">SPRING COLLECTION 2026</p>
+
+      <h1>
+        Gentle Comfort <br />
+        for Little Ones
+      </h1>
+
+      <p class="description">
+        Thoughtfully crafted organic clothing that wraps your baby in softness from day one.
+      </p>
+
+      <div class="buttons">
+        <a href="#" class="btn primary">Shop Collection</a>
+        <a href="#" class="btn secondary">Our Story</a>
+      </div>
+    </div>
+  </section>
+  <!-- End main flex -->
+
+
+  <!-- collections cards-->
+<section class="collection-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Shop by Category</h2>
+      <p>Find the perfect pieces for every stage</p>
+    </div>
+
+    <div class="collection-grid">
+      {% for collection in collections %}
+        {% unless collection.handle == 'frontpage' %}
+          <a href="{{ collection.url }}">
+            <div class="card">
+              <div class="card-image-wrapper">
+                {% if collection.image %}
+                  <img src="{{ collection.image | img_url: 'large' }}" alt="{{ collection.title }}">
+                {% else %}
+                  <img src="{{ collection.products.first.featured_image | img_url: 'large' }}" alt="{{ collection.title }}">
+                {% endif %}
+              </div>
+              <div class="card-overlay">
+                <h3>{{ collection.title }}</h3>
+                <span>{{ collection.description | strip_html | truncatewords: 3 }}</span>
+              </div>
+            </div>
+          </a>
+        {% endunless %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+  <!-- end collection cards -->
+
+
+
+  <!-- All view product section --> 
+<section class="bestsellers-section">
+  <div class="section-header">
+    <h2>Bestsellers</h2>
+    <p>Loved by parents, adored by babies</p>
+  </div>
+
+  <!-- Pehle 4 Products (Hamesha Visible) -->
+  <div class="products-grid" id="initial-products">
+    {% for product in collections.all.products limit: 4 %}
+      <a href="{{ product.url }}" class="product-card">
+        <div class="image-wrapper">
+          <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}">
+        </div>
+        <p class="product-name">{{ product.title }}</p>
+        <p class="product-price">{{ product.price | money }}</p>
+      </a>
+    {% endfor %}
+  </div>
+
+  <!-- Baaki Products (Hidden by default) -->
+  <div class="products-grid hidden-products" id="more-products" style="display: none;">
+    {% for product in collections.all.products offset: 4 %}
+      <a href="{{ product.url }}" class="product-card">
+        <div class="image-wrapper">
+          <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}">
+        </div>
+        <p class="product-name">{{ product.title }}</p>
+        <p class="product-price">{{ product.price | money }}</p>
+      </a>
+    {% endfor %}
+  </div>
+
+  <button onclick="showAllProducts()" class="view-all-btn" id="view-btn">View All Products</button>
+</section>
+<script>
+function showAllProducts() {
+  // Baaki products show karo
+  document.getElementById('more-products').classList.add('show-products');
+  
+  // Button hide karo
+  document.getElementById('view-btn').style.display = 'none';
+}
+</script>
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Category"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Find the perfect pieces for every stage"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Grid"
+    }
+  ]
+  
+}
+{% endschema %}
