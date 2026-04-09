@@ -584,52 +584,40 @@
 
 
   <!-- All view product section --> 
-  <section class="bestsellers-section">
-    <div class="section-header">
-      <h2>Bestsellers</h2>
-      <p>Loved by parents, adored by babies</p>
-    </div>
+<section class="bestsellers-section">
+  <div class="section-header">
+    <h2>Bestsellers</h2>
+    <p>Loved by parents, adored by babies</p>
+  </div>
 
-    <div class="products-grid">
-      <!-- Product 1 -->
-      <a href="#" class="product-card">
+  <div class="products-grid">
+    {% assign show_all = false %}
+    {% if request.path contains 'all-products' or template == 'page.all-products' %}
+      {% assign show_all = true %}
+    {% endif %}
+
+    {% if show_all %}
+      {% assign products_to_show = collections.all.products %}
+    {% else %}
+      {% assign products_to_show = collections.all.products | limit: 4 %}
+    {% endif %}
+
+    {% for product in products_to_show %}
+      <a href="{{ product.url }}" class="product-card">
         <div class="image-wrapper">
-          <img src="/images/imgs (59).jpg" alt="Organic Cotton Onesie">
+          <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}">
         </div>
-        <p class="product-name">Organic Cotton Onesie</p>
-        <p class="product-price">$34</p>
+        <p class="product-name">{{ product.title }}</p>
+        <p class="product-price">{{ product.price | money }}</p>
       </a>
+    {% endfor %}
+  </div>
 
-      <!-- Product 2 -->
-      <a href="#" class="product-card">
-        <div class="image-wrapper">
-          <img src="/images/imgs (60).jpg" alt="Cloud Sleep Sack">
-        </div>
-        <p class="product-name">Cloud Sleep Sack</p>
-        <p class="product-price">$48</p>
-      </a>
+  {% unless show_all %}
+    <a href="/collections/all" class="view-all-btn">View All Products</a>
+  {% endunless %}
+</section>
 
-      <!-- Product 3 -->
-      <a href="#" class="product-card">
-        <div class="image-wrapper">
-          <img src="/images/imgs (61).jpg" alt="Knitted Baby Booties">
-        </div>
-        <p class="product-name">Knitted Baby Booties</p>
-        <p class="product-price">$22</p>
-      </a>
-
-      <!-- Product 4 -->
-      <a href="#" class="product-card">
-        <div class="image-wrapper">
-          <img src="/images/imgs (62).jpg" alt="Muslin Swaddle Set">
-        </div>
-        <p class="product-name">Muslin Swaddle Set</p>
-        <p class="product-price">$38</p>
-      </a>
-    </div>
-
-    <a href="#" class="view-all-btn">View All Products</a>
-  </section>
 {% schema %}
 {
   "name": "Collection Grid",
