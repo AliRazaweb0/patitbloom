@@ -1,6 +1,23 @@
-<!-- aboutme1 Section Template -->
-<section class="aboutme-section" id="aboutme">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Petitbloom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        /* Yahan aapka poora CSS code jo aapne diya hai */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #faf8f5;
+            font-family: 'Inter', sans-serif;
+        }
+        
         .aboutme-section {
             background-color: #faf8f5;
             padding: 0;
@@ -307,111 +324,115 @@
             }
         }
     </style>
+</head>
+<body>
+    <section class="aboutme-section" id="aboutme">
+        <!-- Header -->
+        <header class="aboutme-header">
+            <nav class="aboutme-nav">
+                <a href="#" class="aboutme-logo">petitbloom</a>
+                <ul class="aboutme-nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Shop</a></li>
+                    <li><a href="#" class="active">About</a></li>
+                    <li><a href="#aboutme-contact">Contact</a></li>
+                </ul>
+                <svg class="aboutme-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 6h15l-1.5 9h-12z"></path>
+                    <circle cx="9" cy="20" r="1"></circle>
+                    <circle cx="18" cy="20" r="1"></circle>
+                    <path d="M6 6L5 3H2"></path>
+                </svg>
+            </nav>
+        </header>
 
-    <!-- Header -->
-    <header class="aboutme-header">
-        <nav class="aboutme-nav">
-            <a href="#" class="aboutme-logo">petitbloom</a>
-            <ul class="aboutme-nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Shop</a></li>
-                <li><a href="#" class="active">About</a></li>
-                <li><a href="#aboutme-contact">Contact</a></li>
-            </ul>
-            <svg class="aboutme-cart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 6h15l-1.5 9h-12z"></path>
-                <circle cx="9" cy="20" r="1"></circle>
-                <circle cx="18" cy="20" r="1"></circle>
-                <path d="M6 6L5 3H2"></path>
-            </svg>
-        </nav>
-    </header>
-
-    <!-- Main Content -->
-    <main class="aboutme-main">
-        <h1 class="aboutme-title">Our Story</h1>
-        
-        <div class="aboutme-story">
-            <p>
-                petitbloom was born from a simple idea: every baby deserves clothing that's as gentle as a 
-                parent's touch. Founded in 2022 by two new mothers frustrated by the lack of truly 
-                organic, beautifully designed baby clothing, we set out to create a brand that puts comfort 
-                and safety first — without compromising on style.
-            </p>
+        <!-- Main Content -->
+        <main class="aboutme-main">
+            <h1 class="aboutme-title">Our Story</h1>
             
-            <p>
-                Every piece in our collection is made from GOTS-certified organic cotton, sourced from 
-                family farms and crafted by artisans who share our commitment to quality. We believe that 
-                small choices — like the thread in a seam or the dye in a fabric — make a big difference for 
-                little ones.
-            </p>
-            
-            <p>
-                From our family to yours, thank you for trusting us to dress your most precious ones.
-            </p>
-        </div>
+            <div class="aboutme-story">
+                <p>
+                    petitbloom was born from a simple idea: every baby deserves clothing that's as gentle as a 
+                    parent's touch. Founded in 2022 by two new mothers frustrated by the lack of truly 
+                    organic, beautifully designed baby clothing, we set out to create a brand that puts comfort 
+                    and safety first — without compromising on style.
+                </p>
+                
+                <p>
+                    Every piece in our collection is made from GOTS-certified organic cotton, sourced from 
+                    family farms and crafted by artisans who share our commitment to quality. We believe that 
+                    small choices — like the thread in a seam or the dye in a fabric — make a big difference for 
+                    little ones.
+                </p>
+                
+                <p>
+                    From our family to yours, thank you for trusting us to dress your most precious ones.
+                </p>
+            </div>
 
-        <!-- Stats Section -->
-        <div class="aboutme-stats">
-            <div class="aboutme-stat-item">
-                <div class="aboutme-stat-number">50K+</div>
-                <div class="aboutme-stat-label">Happy Families</div>
+            <!-- Stats Section -->
+            <div class="aboutme-stats">
+                <div class="aboutme-stat-item">
+                    <div class="aboutme-stat-number">50K+</div>
+                    <div class="aboutme-stat-label">Happy Families</div>
+                </div>
+                <div class="aboutme-stat-item">
+                    <div class="aboutme-stat-number">100%</div>
+                    <div class="aboutme-stat-label">Organic Materials</div>
+                </div>
+                <div class="aboutme-stat-item">
+                    <div class="aboutme-stat-number">0</div>
+                    <div class="aboutme-stat-label">Harmful Chemicals</div>
+                </div>
             </div>
-            <div class="aboutme-stat-item">
-                <div class="aboutme-stat-number">100%</div>
-                <div class="aboutme-stat-label">Organic Materials</div>
-            </div>
-            <div class="aboutme-stat-item">
-                <div class="aboutme-stat-number">0</div>
-                <div class="aboutme-stat-label">Harmful Chemicals</div>
-            </div>
-        </div>
-    </main>
+        </main>
 
-    <!-- Contact Section -->
-    <section class="aboutme-contact" id="aboutme-contact">
-        <div class="aboutme-contact-container">
-            <h2>Get in Touch</h2>
-            <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
-            
-            <form class="aboutme-form">
-                <div class="aboutme-form-group">
-                    <label for="aboutme-name">Name</label>
-                    <input type="text" id="aboutme-name" name="name" required>
-                </div>
+        <!-- Contact Section -->
+        <section class="aboutme-contact" id="aboutme-contact">
+            <div class="aboutme-contact-container">
+                <h2>Get in Touch</h2>
+                <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
                 
-                <div class="aboutme-form-group">
-                    <label for="aboutme-email">Email</label>
-                    <input type="email" id="aboutme-email" name="email" required>
-                </div>
-                
-                <div class="aboutme-form-group">
-                    <label for="aboutme-subject">Subject</label>
-                    <input type="text" id="aboutme-subject" name="subject" required>
-                </div>
-                
-                <div class="aboutme-form-group">
-                    <label for="aboutme-message">Message</label>
-                    <textarea id="aboutme-message" name="message" required></textarea>
-                </div>
-                
-                <button type="submit" class="aboutme-submit-btn">Send Message</button>
-            </form>
+                <form class="aboutme-form">
+                    <div class="aboutme-form-group">
+                        <label for="aboutme-name">Name</label>
+                        <input type="text" id="aboutme-name" name="name" required>
+                    </div>
+                    
+                    <div class="aboutme-form-group">
+                        <label for="aboutme-email">Email</label>
+                        <input type="email" id="aboutme-email" name="email" required>
+                    </div>
+                    
+                    <div class="aboutme-form-group">
+                        <label for="aboutme-subject">Subject</label>
+                        <input type="text" id="aboutme-subject" name="subject" required>
+                    </div>
+                    
+                    <div class="aboutme-form-group">
+                        <label for="aboutme-message">Message</label>
+                        <textarea id="aboutme-message" name="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="aboutme-submit-btn">Send Message</button>
+                </form>
 
-            <div class="aboutme-contact-info">
-                <div class="aboutme-info-item">
-                    <h3>Email</h3>
-                    <p>hello@petitbloom.com</p>
-                </div>
-                <div class="aboutme-info-item">
-                    <h3>Phone</h3>
-                    <p>+1 (555) 123-4567</p>
-                </div>
-                <div class="aboutme-info-item">
-                    <h3>Address</h3>
-                    <p>123 Organic Lane, Portland, OR</p>
+                <div class="aboutme-contact-info">
+                    <div class="aboutme-info-item">
+                        <h3>Email</h3>
+                        <p>hello@petitbloom.com</p>
+                    </div>
+                    <div class="aboutme-info-item">
+                        <h3>Phone</h3>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div class="aboutme-info-item">
+                        <h3>Address</h3>
+                        <p>123 Organic Lane, Portland, OR</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </section>
-</section>
+</body>
+</html>
