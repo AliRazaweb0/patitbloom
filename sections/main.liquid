@@ -463,8 +463,8 @@
                 {% endif %}
               </div>
               <div class="card-overlay">
-                <h3>{{ collection.title }}</h3>
-                <span>{{ collection.description | strip_html | truncatewords: 3 }}</span>
+                <h2>{{ section.settings.heading }}</h2>
+<p>{{ section.settings.subheading }}</p>
               </div>
             </div>
           </a>
@@ -546,5 +546,6 @@
       "name": "Collection Grid"
     }
   ]
+  
 }
 {% endschema %}
