@@ -1,105 +1,19 @@
 <style>
-      .hero {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-       opacity: 1;
-    }
-    .hero img{
-    
-    }
+    .hero {
+  position: relative;
+  min-height: 100vh;  /* minimum height */
+  height: 100vh;
+  width: 100vw;       /* full viewport width */
+}
 
-    /* Background Image */
-    .hero-img {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      top: 0;
-      left: 0;
-      opacity:1;
-    }
-
-    /* Soft Overlay */
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(255, 248, 240, 0.75);
-      /* opacity effect */
-    }
-
-    /* Content */
-    .hero-content {
-      position: relative;
-      max-width: 600px;
-      margin-left: 80px;
-      z-index: 2;
-    }
-
-    /* Subheading */
-    .subheading {
-      font-family: 'Inter', sans-serif;
-      letter-spacing: 3px;
-      font-size: 14px;
-      color: #a67c52;
-      margin-bottom: 15px;
-    }
-
-    /* Heading */
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 64px;
-      line-height: 1.1;
-      color: #2d2d2d;
-      margin-bottom: 20px;
-    }
-
-    /* Description */
-    .description {
-      font-family: 'Inter', sans-serif;
-      font-size: 18px;
-      color: #6b6b6b;
-      line-height: 1.6;
-      margin-bottom: 30px;
-    }
-
-    /* Buttons */
-    .buttons {
-      display: flex;
-      gap: 15px;
-    }
-
-    .btn {
-      padding: 14px 28px;
-      border-radius: 30px;
-      font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    /* Primary Button */
-    .btn.primary {
-      background: #8b5e3c;
-      color: white;
-    }
-
-    .btn.primary:hover {
-      background: #6f4a2f;
-    }
-
-    /* Secondary Button */
-    .btn.secondary {
-      background: #eee;
-      color: #333;
-    }
-
-    .btn.secondary:hover {
-      background: #ddd;
-    }
-
+.hero-img {
+  position: absolute;
+  inset: 0;          /* top:0, right:0, bottom:0, left:0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
 
     /* Soft Overlay */
     .overlay {
