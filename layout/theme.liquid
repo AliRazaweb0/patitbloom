@@ -39,6 +39,29 @@
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+    <button class="global-home-btn" onclick="window.location.href='/'">
+  Back to Home
+</button>
+
+<style>
+.global-home-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #28a745;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  z-index: 999999;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.global-home-btn:hover {
+  background: #1f7a31;
+}
+</style>
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
     <div id="header-group">
       {% sections 'header-group' %}
