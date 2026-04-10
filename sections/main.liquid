@@ -54,276 +54,67 @@
 }
 
 /* Content - Left Side Middle */
+.hero {
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+}
+
 .hero-content {
   position: relative;
   max-width: 600px;
-  margin-left: 80px;        /* Left spacing */
+  margin-left: 80px;
   z-index: 2;
-  /* Agar content ko vertically center karna ho to: */
+
   display: flex;
   flex-direction: column;
-  justify-content: left;
-  text-direction:left
-}
-
-/* Subheading */
-.subheading {
-  font-family: 'Inter', sans-serif;
-  letter-spacing: 3px;
-  font-size: 14px;
-  color: #a67c52;
-  margin-bottom: 15px;
-  text-transform: uppercase; /* Optional: better look */
-}
-
-/* Heading */
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 64px;
-  line-height: 1.1;
-  color: #2d2d2d;
-  margin-bottom: 20px;
-}
-
-/* Description */
-.description {
-  font-family: 'Inter', sans-serif;
-  font-size: 18px;
-  color: #6b6b6b;
-  line-height: 1.6;
-  margin-bottom: 30px;
+  align-items: flex-start;
+  text-align: left;
 }
 
 /* Buttons */
 .buttons {
   display: flex;
   gap: 15px;
-  flex-wrap: wrap;          /* Mobile pe wrap ho jayenge */
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-.btn {
-  padding: 14px 28px;
-  border-radius: 30px;
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  text-decoration: none;
-  transition: 0.3s;
-  display: inline-block;
-}
-
-/* Primary Button */
-.btn.primary {
-  background: #8b5e3c;
-  color: white;
-}
-
-.btn.primary:hover {
-  background: #6f4a2f;
-}
-
-/* Secondary Button */
-.btn.secondary {
-  background: #eee;
-  color: #333;
-}
-
-.btn.secondary:hover {
-  background: #ddd;
-}
-
-/* Mobile Responsive */
+/* =========================
+   Tablet & Mobile
+========================= */
 @media (max-width: 768px) {
-  .hero-content {
-    margin-left: 20px;      /* Mobile pe kam spacing */
-    margin-right: 20px;
-    max-width: 100%;
+
+  .hero {
+    text-align: center;
+    justify-content: center;
   }
-  
-  .hero h1 {
-    font-size: 42px;        /* Mobile pe chhota font */
+
+  .hero-content {
+    margin: 0;
+    max-width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .buttons {
+    justify-content: center;
   }
 }
 
-    /* =========================
-   Tablet (≤ 1024px)
-========================= */
-    @media (max-width: 1024px) {
+/* Small mobile */
+@media (max-width: 480px) {
 
-      /* Navbar */
-      .nav-container {
-        padding: 12px 20px;
-      }
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
 
-      .navbar nav a {
-        margin-left: 15px;
-        font-size: 14px;
-      }
-
-      /* Hero */
-      .hero {
-        height: 80vh;
-      }
-
-      .hero-content {
-        margin-left: 40px;
-        max-width: 500px;
-      }
-
-      .hero h1 {
-        font-size: 48px;
-      }
-
-      .description {
-        font-size: 16px;
-      }
-    }
-
-
-    /* =========================
- Mobile (≤ 768px)
-========================= */
-    @media (max-width: 768px) {
-
-      /* Navbar */
-      .nav-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .navbar nav {
-        display: flex;
-        gap: 15px;
-      }
-
-      .navbar nav a {
-        margin: 0;
-        font-size: 13px;
-      }
-
-      /* Hero */
-      .hero {
-        height: 100%;
-        width:100%
-        padding: 80px 20px;
-        justify-content: center;
-        text-align: center;
-      }
-
-
-      .hero-content {
-        margin: 0;
-        max-width: 100%;
-      }
-
-      .hero h1 {
-        font-size: 36px;
-      }
-
-      .subheading {
-        font-size: 12px;
-        letter-spacing: 2px;
-      }
-
-      .description {
-        font-size: 15px;
-      }
-
-      .buttons {
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .btn {
-        padding: 12px 22px;
-        font-size: 14px;
-      }
-    }
-
-
-    /* =========================
- Small Mobile (≤ 480px)
-========================= */
-    @media (max-width: 480px) {
-
-      .hero h1 {
-        font-size: 28px;
-      }
-
-      .description {
-        font-size: 14px;
-      }
-
-      .btn {
-        width: 100%;
-        text-align: center;
-      }
-
-      .buttons {
-        flex-direction: column;
-      }
-    }
-
-    /* Section */
-         .hero {
-        height: auto;
-        padding: 80px 20px;
-        justify-content: center;
-        text-align: center;
-      }
-
-      .hero-content {
-        margin: 0;
-        max-width: 100%;
-      }
-
-      .hero h1 {
-        font-size: 36px;
-      }
-
-      .subheading {
-        font-size: 12px;
-        letter-spacing: 2px;
-      }
-
-      .description {
-        font-size: 15px;
-      }
-
-      .buttons {
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .btn {
-        padding: 12px 22px;
-        font-size: 14px;
-      }
-    }
-
-
-    /* =========================
- Small Mobile (≤ 480px)
-========================= */
-    @media (max-width: 480px) {
-
-      .hero h1 {
-        font-size: 28px;
-      }
-
-      .description {
-        font-size: 14px;
-      }
-
-      .btn {
-        width: 100%;
-        text-align: center;
-      }
-
-      .buttons {
-        flex-direction: column;
-      }
-    }
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
 
     /* Section */
     .collection-section {
