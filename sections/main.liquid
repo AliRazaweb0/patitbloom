@@ -55,10 +55,15 @@
 
 /* Content - Left Side Middle */
 .hero-content {
+  position: relative;
+  max-width: 600px;
+  margin-left: 80px;        /* Left spacing */
+  z-index: 2;
+  /* Agar content ko vertically center karna ho to: */
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
+  justify-content: left;
+  text-direction:left
 }
 
 /* Subheading */
