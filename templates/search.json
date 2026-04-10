@@ -97,6 +97,22 @@
             "padding-inline-end": 0
           },
           "blocks": {
+            "custom_liquid_jmKNtd": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": ""
+              },
+              "blocks": {}
+            },
+            "custom_liquid_eUYHjm": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": ""
+              },
+              "blocks": {}
+            },
             "product_card_gallery_cFExAi": {
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
@@ -163,6 +179,8 @@
             }
           },
           "block_order": [
+            "custom_liquid_jmKNtd",
+            "custom_liquid_eUYHjm",
             "product_card_gallery_cFExAi",
             "product_title_j7qXTx",
             "price_fYkUgG"
