@@ -3,7 +3,31 @@
 <div>
   {{ block.settings.custom_liquid }}
 </div>
+{% if request.page_type == 'product' %}
+  <button class="global-home-btn" onclick="window.location.href='/'">
+    Back to Home
+  </button>
 
+  <style>
+    .global-home-btn {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: #28a745;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      z-index: 999999;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .global-home-btn:hover {
+      background: #1f7a31;
+    }
+  </style>
+{% endif %}
 
 {% schema %}
 {
