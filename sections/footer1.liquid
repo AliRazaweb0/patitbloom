@@ -462,53 +462,7 @@
       <p class="footer-copyright">© 2026 petitbloom. All rights reserved.</p>
     </div>
   </footer>
-  {% comment %} <!-- sections/footer.liquid -->
-<footer class="footer">
-  <div class="footer-container">
-    <!-- Brand Column -->
-    <div class="footer-brand">
-      <h3 class="footer-logo">{{ section.settings.brand_name }}</h3>
-      <p class="footer-tagline">{{ section.settings.brand_tagline }}</p>
-    </div>
-
-    <!-- Shop Links -->
-    <div class="footer-links">
-      <h4 class="footer-heading">SHOP</h4>
-      <ul>
-        {% for link in section.settings.shop_links %}
-        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-
-    <!-- Company Links -->
-    <div class="footer-links">
-      <h4 class="footer-heading">COMPANY</h4>
-      <ul>
-        {% for link in section.settings.company_links %}
-        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-
-    <!-- Support Links -->
-    <div class="footer-links">
-      <h4 class="footer-heading">SUPPORT</h4>
-      <ul>
-        {% for link in section.settings.support_links %}
-        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-
-  <!-- Copyright -->
-  <div class="footer-bottom">
-    <p class="footer-copyright">
-      © {{ "now" | date: "%Y" }} {{ section.settings.brand_name }}. All rights reserved.
-    </p>
-  </div>
-</footer> {% endcomment %}
+ 
 
 {% schema %}
 {
