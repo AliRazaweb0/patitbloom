@@ -462,7 +462,7 @@
       <p class="footer-copyright">© 2026 petitbloom. All rights reserved.</p>
     </div>
   </footer>
-  <!-- sections/footer.liquid -->
+  {% comment %} <!-- sections/footer.liquid -->
 <footer class="footer">
   <div class="footer-container">
     <!-- Brand Column -->
@@ -508,7 +508,7 @@
       © {{ "now" | date: "%Y" }} {{ section.settings.brand_name }}. All rights reserved.
     </p>
   </div>
-</footer>
+</footer> {% endcomment %}
 
 {% schema %}
 {
