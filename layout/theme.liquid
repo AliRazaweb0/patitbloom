@@ -39,7 +39,33 @@
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
-    TEST PAGE TYPE: {{ request.page_type }}
+    {% if request.page_type == 'product' %}
+  <div id="back-home-btn">
+    <button onclick="window.location.href='/'">
+      Back to Home
+    </button>
+  </div>
+
+  <style>
+    #back-home-btn button {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      background: #28a745;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      z-index: 999999;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #back-home-btn button:hover {
+      background: #1f7a31;
+    }
+  </style>
+{% endif %}
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
     <div id="header-group">
       {% sections 'header-group' %}
