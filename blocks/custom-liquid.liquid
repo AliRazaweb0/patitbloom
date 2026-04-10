@@ -4,12 +4,14 @@
   {{ block.settings.custom_liquid }}
 </div>
 {% if request.page_type == 'product' %}
-  <button class="global-home-btn" onclick="window.location.href='/'">
-    Back to Home
-  </button>
+  <div id="back-home-btn">
+    <button onclick="window.location.href='/'">
+      Back to Home
+    </button>
+  </div>
 
   <style>
-    .global-home-btn {
+    #back-home-btn button {
       position: fixed;
       top: 15px;
       left: 15px;
@@ -23,7 +25,7 @@
       font-weight: bold;
     }
 
-    .global-home-btn:hover {
+    #back-home-btn button:hover {
       background: #1f7a31;
     }
   </style>
