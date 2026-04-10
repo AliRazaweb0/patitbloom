@@ -44,18 +44,22 @@
     <div id="header-group">
       {% sections 'header-group' %}
     </div>
-<a href="/" style="
-position:fixed;
-top:15px;
-left:15px;
-background:green;
-color:white;
-padding:10px;
-z-index:999999;
-text-decoration:none;
-">
-Back to Home
-</a>
+{% if request.page.handle == 'shop' %}
+  <a href="/" style="
+    position:fixed;
+    top:15px;
+    left:15px;
+    background:green;
+    color:white;
+    padding:10px 16px;
+    z-index:999999;
+    text-decoration:none;
+    border-radius:6px;
+    font-weight:bold;
+  ">
+    Back to Home
+  </a>
+{% endif %}
     <script>
       // Inline header height and menu style calculations to prevent layout shift
       // Note: Updates in calculateHeaderGroupHeight(), updateTransparentHeaderOffset() and setHeaderMenuStyle() utilities.js should be kept in sync with this function
