@@ -1,4 +1,10 @@
 <style>
+    .hero {
+  position: relative;
+  min-height: 100vh;  /* minimum height */
+  height: 100vh;
+  width: 100vw;       /* full viewport width */
+}
 
 .hero-img {
   position: absolute;
@@ -9,6 +15,13 @@
   object-position: center center;
 }
 
+    /* Soft Overlay */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 248, 240, 0.75);
+      /* opacity effect */
+    }
 
    .hero {
   position: relative;
