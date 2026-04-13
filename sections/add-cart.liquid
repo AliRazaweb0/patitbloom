@@ -1,4 +1,15 @@
+{% comment %}
+  Custom Product Page Template
+  Yeh template har product ke liye dynamic data show karega
+{% endcomment %}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.title }} - {{ shop.name }}</title>
+    
     <style>
         * {
             margin: 0;
@@ -10,6 +21,11 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background-color: #faf9f7;
             color: #333;
+        }
+
+        /* Shopify Header Integration */
+        .shopify-header {
+            {% comment %} Aapka existing Shopify header yahan aa jayega {% endcomment %}
         }
 
         /* Header */
@@ -27,6 +43,7 @@
             font-weight: 600;
             color: #5c4b37;
             font-family: Georgia, serif;
+            text-decoration: none;
         }
 
         .nav {
@@ -48,6 +65,18 @@
         .cart-icon {
             font-size: 20px;
             cursor: pointer;
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #8b6f47;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 50%;
         }
 
         /* Breadcrumb */
@@ -79,17 +108,39 @@
             margin: 0 auto;
         }
 
-        /* Left Side - Image */
-        .product-image {
+        /* Left Side - Image Gallery */
+        .product-image-section {
             flex: 1;
             max-width: 550px;
         }
 
-        .product-image img {
+        .main-image {
             width: 100%;
             height: auto;
             border-radius: 12px;
             object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .image-gallery {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        .gallery-thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .gallery-thumb:hover,
+        .gallery-thumb.active {
+            border-color: #8b6f47;
         }
 
         /* Right Side - Details */
@@ -111,6 +162,13 @@
             color: #5c4b37;
             margin-bottom: 10px;
             font-weight: 500;
+        }
+
+        .compare-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 18px;
+            margin-left: 10px;
         }
 
         .product-rating {
@@ -137,8 +195,8 @@
             margin-bottom: 30px;
         }
 
-        /* Size Selector */
-        .size-section {
+        /* Variant Selector (Size/Color) */
+        .variant-section {
             margin-bottom: 25px;
         }
 
@@ -152,12 +210,13 @@
             letter-spacing: 0.5px;
         }
 
-        .size-options {
+        .variant-options {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .size-btn {
+        .variant-btn {
             padding: 10px 20px;
             border: 1px solid #d4d0c8;
             background-color: white;
@@ -168,14 +227,20 @@
             transition: all 0.3s;
         }
 
-        .size-btn:hover {
+        .variant-btn:hover {
             border-color: #8b6f47;
         }
 
-        .size-btn.active {
+        .variant-btn.active {
             background-color: #8b6f47;
             color: white;
             border-color: #8b6f47;
+        }
+
+        .variant-btn.unavailable {
+            opacity: 0.5;
+            cursor: not-allowed;
+            text-decoration: line-through;
         }
 
         /* Quantity Selector */
@@ -220,6 +285,10 @@
         }
 
         /* Add to Cart Button */
+        .add-to-cart-form {
+            margin-bottom: 20px;
+        }
+
         .add-to-cart {
             width: 100%;
             padding: 16px;
@@ -231,16 +300,21 @@
             font-weight: 500;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin-bottom: 30px;
         }
 
         .add-to-cart:hover {
             background-color: #6d5638;
         }
 
-        /* Features List */
+        .add-to-cart:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Dynamic Features from Product Tags/Metafields */
         .features-list {
             list-style: none;
+            margin-top: 30px;
         }
 
         .feature-item {
@@ -255,6 +329,24 @@
         .check-icon {
             color: #8b6f47;
             font-size: 16px;
+        }
+
+        /* Product Meta Info */
+        .product-meta {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e8e6e3;
+        }
+
+        .meta-item {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: #555;
         }
 
         /* Responsive */
@@ -277,7 +369,7 @@
                 gap: 30px;
             }
 
-            .product-image,
+            .product-image-section,
             .product-details {
                 max-width: 100%;
             }
@@ -289,94 +381,224 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
+
+    {% comment %} ===== HEADER (Shopify Integration) ===== {% endcomment %}
     <header class="header">
-        <div class="logo">petitbloom</div>
+        <a href="{{ shop.url }}" class="logo">{{ shop.name }}</a>
         <nav class="nav">
-            <a href="#">Home</a>
-            <a href="#">Shop</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="/">Home</a>
+            <a href="/collections/all">Shop</a>
+            <a href="/pages/about">About</a>
+            <a href="/pages/contact">Contact</a>
         </nav>
-        <div class="cart-icon">🛒</div>
+        <div class="cart-icon" onclick="window.location.href='/cart'">
+            🛒
+            {% if cart.item_count > 0 %}
+                <span class="cart-count">{{ cart.item_count }}</span>
+            {% endif %}
+        </div>
     </header>
 
-    <!-- Breadcrumb -->
+    {% comment %} ===== BREADCRUMB ===== {% endcomment %}
     <div class="breadcrumb">
-        <a href="#">Home</a>
+        <a href="{{ shop.url }}">Home</a>
         <span>/</span>
-        <a href="#">Shop</a>
+        <a href="/collections/all">Shop</a>
         <span>/</span>
-        <span>Cloud Sleep Sack</span>
+        <span>{{ product.title }}</span>
     </div>
 
-    <!-- Product Section -->
+    {% comment %} ===== PRODUCT SECTION ===== {% endcomment %}
     <div class="product-container">
-        <!-- Left Side - Product Image -->
-        <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&h=700&fit=crop" alt="Baby in green inflatable pool">
+        
+        {% comment %} LEFT SIDE - IMAGES {% endcomment %}
+        <div class="product-image-section">
+            {% if product.featured_image %}
+                <img 
+                    src="{{ product.featured_image | img_url: 'large' }}" 
+                    alt="{{ product.title }}"
+                    class="main-image"
+                    id="mainImage"
+                >
+            {% else %}
+                <img 
+                    src="https://via.placeholder.com/600x700?text=No+Image" 
+                    alt="No Image"
+                    class="main-image"
+                >
+            {% endif %}
+
+            {% comment %} Image Gallery {% endcomment %}
+            {% if product.images.size > 1 %}
+                <div class="image-gallery">
+                    {% for image in product.images %}
+                        <img 
+                            src="{{ image | img_url: 'small' }}" 
+                            alt="{{ product.title }}"
+                            class="gallery-thumb {% if forloop.first %}active{% endif %}"
+                            onclick="changeImage('{{ image | img_url: 'large' }}', this)"
+                        >
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
 
-        <!-- Right Side - Product Details -->
+        {% comment %} RIGHT SIDE - DETAILS {% endcomment %}
         <div class="product-details">
-            <h1 class="product-title">Cloud Sleep Sack</h1>
-            <div class="product-price">$48</div>
             
+            {% comment %} Dynamic Title {% endcomment %}
+            <h1 class="product-title">{{ product.title }}</h1>
+            
+            {% comment %} Dynamic Price {% endcomment %}
+            <div class="product-price">
+                {{ product.price | money }}
+                {% if product.compare_at_price > product.price %}
+                    <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+            </div>
+
+            {% comment %} Reviews/Rating (if using Shopify Reviews or Judge.me) {% endcomment %}
             <div class="product-rating">
                 <span class="stars">★★★★★</span>
-                <span class="review-count">(1 reviews)</span>
+                <span class="review-count">({{ product.metafields.reviews.rating_count | default: 0 }} reviews)</span>
             </div>
 
-            <p class="product-description">
-                Keep your little one cozy and safe through the night with our ultra-soft sleep sack.
-            </p>
+            {% comment %} Dynamic Description {% endcomment %}
+            <div class="product-description">
+                {{ product.description | strip_html | truncatewords: 30 }}
+            </div>
 
-            <!-- Size Selector -->
-            <div class="size-section">
-                <label class="section-label">Size</label>
-                <div class="size-options">
-                    <button class="size-btn active">0-6M</button>
-                    <button class="size-btn">6-12M</button>
-                    <button class="size-btn">12-18M</button>
+            {% comment %} ADD TO CART FORM {% endcomment %}
+            <form action="/cart/add" method="post" enctype="multipart/form-data" class="add-to-cart-form" id="productForm">
+                
+                {% comment %} Variant Selector {% endcomment %}
+                {% if product.variants.size > 1 %}
+                    <div class="variant-section">
+                        <label class="section-label">
+                            {% if product.options.size == 1 %}
+                                {{ product.options.first }}
+                            {% else %}
+                                Options
+                            {% endif %}
+                        </label>
+                        
+                        <div class="variant-options">
+                            {% for variant in product.variants %}
+                                <button 
+                                    type="button"
+                                    class="variant-btn {% if variant == product.selected_or_first_available_variant %}active{% endif %} {% unless variant.available %}unavailable{% endunless %}"
+                                    onclick="selectVariant({{ variant.id }}, this)"
+                                    {% unless variant.available %}disabled{% endunless %}
+                                    data-variant-id="{{ variant.id }}"
+                                    data-price="{{ variant.price | money }}"
+                                    data-compare-price="{{ variant.compare_at_price | money }}"
+                                >
+                                    {{ variant.title }}
+                                </button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% comment %} Hidden Variant ID Input {% endcomment %}
+                <input type="hidden" name="id" id="variantId" value="{{ product.selected_or_first_available_variant.id }}">
+
+                {% comment %} Quantity Selector {% endcomment %}
+                <div class="quantity-section">
+                    <label class="section-label">Quantity</label>
+                    <div class="quantity-selector">
+                        <button type="button" class="qty-btn" onclick="decreaseQty()">−</button>
+                        <input type="number" name="quantity" class="qty-input" value="1" id="quantity" min="1" max="{{ product.selected_or_first_available_variant.inventory_quantity }}">
+                        <button type="button" class="qty-btn" onclick="increaseQty()">+</button>
+                    </div>
+                </div>
+
+                {% comment %} Add to Cart Button {% endcomment %}
+                <button 
+                    type="submit" 
+                    class="add-to-cart"
+                    id="addToCartBtn"
+                    {% unless product.available %}disabled{% endunless %}
+                >
+                    {% if product.available %}
+                        Add to Cart — {{ product.selected_or_first_available_variant.price | money }}
+                    {% else %}
+                        Sold Out
+                    {% endif %}
+                </button>
+            </form>
+
+            {% comment %} Dynamic Features from Product Tags {% endcomment %}
+            {% if product.tags.size > 0 %}
+                <ul class="features-list">
+                    {% for tag in product.tags %}
+                        {% if tag contains 'feature:' %}
+                            <li class="feature-item">
+                                <span class="check-icon">✓</span>
+                                <span>{{ tag | remove: 'feature:' }}</span>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% comment %} Product Meta Information {% endcomment %}
+            <div class="product-meta">
+                {% if product.vendor %}
+                    <div class="meta-item">
+                        <span class="meta-label">Vendor:</span> {{ product.vendor }}
+                    </div>
+                {% endif %}
+                
+                {% if product.type %}
+                    <div class="meta-item">
+                        <span class="meta-label">Type:</span> {{ product.type }}
+                    </div>
+                {% endif %}
+                
+                <div class="meta-item">
+                    <span class="meta-label">SKU:</span> <span id="skuDisplay">{{ product.selected_or_first_available_variant.sku }}</span>
                 </div>
             </div>
 
-            <!-- Quantity Selector -->
-            <div class="quantity-section">
-                <label class="section-label">Quantity</label>
-                <div class="quantity-selector">
-                    <button class="qty-btn" onclick="decreaseQty()">−</button>
-                    <input type="text" class="qty-input" value="1" id="quantity" readonly>
-                    <button class="qty-btn" onclick="increaseQty()">+</button>
-                </div>
-            </div>
-
-            <!-- Add to Cart Button -->
-            <button class="add-to-cart">Add to Cart — $48.00</button>
-
-            <!-- Features -->
-            <ul class="features-list">
-                <li class="feature-item">
-                    <span class="check-icon">✓</span>
-                    <span>TOG 1.0</span>
-                </li>
-                <li class="feature-item">
-                    <span class="check-icon">✓</span>
-                    <span>Hip-healthy design</span>
-                </li>
-                <li class="feature-item">
-                    <span class="check-icon">✓</span>
-                    <span>Two-way zipper</span>
-                </li>
-                <li class="feature-item">
-                    <span class="check-icon">✓</span>
-                    <span>Breathable fabric</span>
-                </li>
-            </ul>
         </div>
     </div>
 
+    {% comment %} ===== JAVASCRIPT ===== {% endcomment %}
     <script>
+        // Image Gallery Functionality
+        function changeImage(src, thumb) {
+            document.getElementById('mainImage').src = src;
+            
+            // Update active state
+            document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        }
+
+        // Variant Selection
+        function selectVariant(variantId, btn) {
+            // Update hidden input
+            document.getElementById('variantId').value = variantId;
+            
+            // Update active state
+            document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Update price display
+            const price = btn.getAttribute('data-price');
+            const comparePrice = btn.getAttribute('data-compare-price');
+            
+            let priceHtml = price;
+            if (comparePrice && comparePrice !== '0') {
+                priceHtml += `<span class="compare-price">${comparePrice}</span>`;
+            }
+            document.querySelector('.product-price').innerHTML = priceHtml;
+            
+            // Update Add to Cart button text
+            document.getElementById('addToCartBtn').innerHTML = `Add to Cart — ${price}`;
+        }
+
+        // Quantity Functions
         function increaseQty() {
             let qty = document.getElementById('quantity');
             qty.value = parseInt(qty.value) + 1;
@@ -389,12 +611,38 @@
             }
         }
 
-        // Size button toggle
-        document.querySelectorAll('.size-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
+        // Form Submission (AJAX)
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch('/cart/add.js', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update cart count
+                fetch('/cart.js')
+                    .then(res => res.json())
+                    .then(cart => {
+                        const cartCount = document.querySelector('.cart-count');
+                        if (cartCount) {
+                            cartCount.textContent = cart.item_count;
+                        } else {
+                            location.reload(); // Reload to show cart count
+                        }
+                    });
+                
+                alert('Product added to cart!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error adding to cart. Please try again.');
             });
         });
     </script>
+
 </body>
+</html>
