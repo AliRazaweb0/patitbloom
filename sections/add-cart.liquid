@@ -1,6 +1,6 @@
 {% comment %}
-  Custom Product Page - Dynamic Shopify Data
-  Yeh file: templates/product.liquid
+  HOME PAGE - Product Cards Grid
+  Ali Jutt Store
 {% endcomment %}
 
 <!DOCTYPE html>
@@ -8,27 +8,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ product.title }} - {{ shop.name }}</title>
-    <meta name="description" content="{{ product.description | strip_html | truncate: 150 }}">
-    
-    {% comment %} Shopify Header Scripts {% endcomment %}
+    <title>{{ shop.name }} - Home</title>
     {{ content_for_header }}
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #faf9f7; 
+            color: #333; 
         }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #faf9f7;
-            color: #333;
-        }
-
+        
         /* Header */
-        .custom-header {
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -36,39 +29,27 @@
             background-color: #faf9f7;
             border-bottom: 1px solid #e8e6e3;
         }
-
-        .custom-logo {
+        
+        .logo {
             font-size: 24px;
             font-weight: 600;
             color: #5c4b37;
             font-family: Georgia, serif;
             text-decoration: none;
         }
-
-        .custom-nav {
-            display: flex;
-            gap: 30px;
-        }
-
-        .custom-nav a {
-            text-decoration: none;
-            color: #666;
-            font-size: 14px;
-            transition: color 0.3s;
-        }
-
-        .custom-nav a:hover {
-            color: #5c4b37;
-        }
-
-        .custom-cart {
+        
+        .nav { display: flex; gap: 30px; }
+        .nav a { text-decoration: none; color: #666; font-size: 14px; }
+        .nav a:hover { color: #5c4b37; }
+        
+        .cart-icon {
             font-size: 20px;
             cursor: pointer;
             position: relative;
             text-decoration: none;
         }
-
-        .cart-badge {
+        
+        .cart-count {
             position: absolute;
             top: -8px;
             right: -8px;
@@ -77,763 +58,217 @@
             font-size: 10px;
             padding: 2px 6px;
             border-radius: 50%;
-            min-width: 18px;
+        }
+        
+        /* Hero Section */
+        .hero {
             text-align: center;
+            padding: 80px 20px;
+            background-color: #f5f3f0;
         }
-
-        /* Breadcrumb */
-        .custom-breadcrumb {
-            padding: 20px 50px;
-            font-size: 13px;
-            color: #888;
-        }
-
-        .custom-breadcrumb a {
-            color: #888;
-            text-decoration: none;
-        }
-
-        .custom-breadcrumb a:hover {
-            color: #5c4b37;
-        }
-
-        .custom-breadcrumb span {
-            margin: 0 8px;
-        }
-
-        /* Product Container */
-        .custom-product-container {
-            display: flex;
-            gap: 60px;
-            padding: 0 50px 50px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Left Side - Image */
-        .custom-product-image {
-            flex: 1;
-            max-width: 550px;
-        }
-
-        .custom-main-image {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            object-fit: cover;
-            margin-bottom: 15px;
-            cursor: zoom-in;
-        }
-
-        .custom-gallery {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-
-        .custom-gallery-thumb {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
-            object-fit: cover;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s;
-            flex-shrink: 0;
-        }
-
-        .custom-gallery-thumb:hover,
-        .custom-gallery-thumb.active {
-            border-color: #8b6f47;
-        }
-
-        /* Right Side - Details */
-        .custom-product-details {
-            flex: 1;
-            max-width: 450px;
-        }
-
-        .custom-product-title {
-            font-size: 32px;
-            font-weight: 500;
+        
+        .hero h1 {
+            font-size: 48px;
             color: #3d3226;
-            margin-bottom: 10px;
             font-family: Georgia, serif;
-            line-height: 1.2;
-        }
-
-        .custom-product-price {
-            font-size: 24px;
-            color: #5c4b37;
-            margin-bottom: 10px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .custom-compare-price {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 18px;
-        }
-
-        .custom-product-rating {
-            display: flex;
-            align-items: center;
-            gap: 8px;
             margin-bottom: 20px;
         }
-
-        .custom-stars {
-            color: #8b6f47;
-            font-size: 16px;
-        }
-
-        .custom-review-count {
-            color: #888;
-            font-size: 13px;
-        }
-
-        .custom-product-description {
+        
+        .hero p {
+            font-size: 18px;
             color: #666;
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 30px;
+            max-width: 600px;
+            margin: 0 auto;
         }
-
-        /* Variant Selector */
-        .custom-variant-section {
-            margin-bottom: 25px;
+        
+        /* Products Section */
+        .products-section {
+            padding: 60px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-
-        .custom-section-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 12px;
+        
+        .section-title {
+            font-size: 32px;
+            color: #3d3226;
+            font-family: Georgia, serif;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Product Card */
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
             display: block;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            background-color: #f0eeeb;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #3d3226;
+            margin-bottom: 8px;
+            font-family: Georgia, serif;
+        }
+        
+        .card-price {
+            font-size: 20px;
+            color: #8b6f47;
+            font-weight: 600;
+        }
+        
+        .card-compare-price {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+        
+        .card-badge {
+            display: inline-block;
+            background-color: #8b6f47;
+            color: white;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-top: 10px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
-        .custom-variant-options {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .custom-variant-btn {
-            padding: 10px 20px;
-            border: 1px solid #d4d0c8;
-            background-color: white;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 13px;
-            color: #666;
-            transition: all 0.3s;
-        }
-
-        .custom-variant-btn:hover {
-            border-color: #8b6f47;
-        }
-
-        .custom-variant-btn.active {
-            background-color: #8b6f47;
-            color: white;
-            border-color: #8b6f47;
-        }
-
-        .custom-variant-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            text-decoration: line-through;
-        }
-
-        /* Quantity */
-        .custom-quantity-section {
-            margin-bottom: 25px;
-        }
-
-        .custom-quantity-selector {
-            display: flex;
-            align-items: center;
-            border: 1px solid #d4d0c8;
-            border-radius: 8px;
-            width: fit-content;
-            background-color: white;
-        }
-
-        .custom-qty-btn {
-            width: 40px;
-            height: 40px;
-            border: none;
-            background-color: transparent;
-            cursor: pointer;
-            font-size: 18px;
-            color: #666;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.3s;
-        }
-
-        .custom-qty-btn:hover {
-            color: #5c4b37;
-        }
-
-        .custom-qty-input {
-            width: 50px;
-            height: 40px;
-            border: none;
+        
+        /* Footer */
+        .footer {
+            background-color: #3d3226;
+            color: #ccc;
+            padding: 40px 50px;
             text-align: center;
-            font-size: 15px;
-            color: #333;
-            outline: none;
-            -moz-appearance: textfield;
+            margin-top: 60px;
         }
-
-        .custom-qty-input::-webkit-outer-spin-button,
-        .custom-qty-input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        /* Add to Cart */
-        .custom-add-to-cart-form {
-            margin-bottom: 30px;
-        }
-
-        .custom-add-to-cart {
-            width: 100%;
-            padding: 16px;
-            background-color: #8b6f47;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .custom-add-to-cart:hover {
-            background-color: #6d5638;
-        }
-
-        .custom-add-to-cart:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        .custom-add-to-cart.loading {
-            opacity: 0.8;
-            pointer-events: none;
-        }
-
-        /* Features */
-        .custom-features-list {
-            list-style: none;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #e8e6e3;
-        }
-
-        .custom-feature-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .custom-check-icon {
-            color: #8b6f47;
-            font-size: 16px;
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Meta */
-        .custom-product-meta {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #e8e6e3;
-        }
-
-        .custom-meta-item {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 8px;
-        }
-
-        .custom-meta-label {
-            font-weight: 600;
-            color: #555;
-        }
-
-        /* Messages */
-        .custom-message {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            display: none;
-        }
-
-        .custom-message.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .custom-message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
+        
         /* Responsive */
         @media (max-width: 768px) {
-            .custom-header {
-                padding: 15px 20px;
-            }
-
-            .custom-nav {
-                display: none;
-            }
-
-            .custom-breadcrumb {
-                padding: 15px 20px;
-            }
-
-            .custom-product-container {
-                flex-direction: column;
-                padding: 0 20px 30px;
-                gap: 30px;
-            }
-
-            .custom-product-image,
-            .custom-product-details {
-                max-width: 100%;
-            }
-
-            .custom-product-title {
-                font-size: 24px;
-            }
-
-            .custom-gallery-thumb {
-                width: 60px;
-                height: 60px;
-            }
+            .header { padding: 15px 20px; }
+            .nav { display: none; }
+            .hero h1 { font-size: 32px; }
+            .products-section { padding: 40px 20px; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .card-image { height: 200px; }
         }
     </style>
 </head>
 <body>
 
     {% comment %} ===== HEADER ===== {% endcomment %}
-    <header class="custom-header">
-        <a href="{{ routes.root_url }}" class="custom-logo">{{ shop.name }}</a>
-        
-        <nav class="custom-nav">
-            <a href="{{ routes.root_url }}">Home</a>
-            <a href="{{ routes.all_products_collection_url }}">Shop</a>
-            <a href="{{ routes.pages_url }}/about">About</a>
-            <a href="{{ routes.pages_url }}/contact">Contact</a>
+    <header class="header">
+        <a href="/" class="logo">{{ shop.name }}</a>
+        <nav class="nav">
+            <a href="/">Home</a>
+            <a href="/collections/all">Shop</a>
+            <a href="/pages/about">About</a>
+            <a href="/pages/contact">Contact</a>
         </nav>
-        
-        <a href="{{ routes.cart_url }}" class="custom-cart">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle;">
-                <path d="M6 6h15l-1.5 9h-12z"></path>
-                <circle cx="9" cy="20" r="1"></circle>
-                <circle cx="18" cy="20" r="1"></circle>
-                <path d="M6 6L5 3H2"></path>
-            </svg>
+        <a href="/cart" class="cart-icon">
+            🛒
             {% if cart.item_count > 0 %}
-                <span class="cart-badge" id="cartCount">{{ cart.item_count }}</span>
+                <span class="cart-count">{{ cart.item_count }}</span>
             {% endif %}
         </a>
     </header>
 
-    {% comment %} ===== BREADCRUMB ===== {% endcomment %}
-    <nav class="custom-breadcrumb">
-        <a href="{{ routes.root_url }}">Home</a>
-        <span>/</span>
-        <a href="{{ routes.all_products_collection_url }}">Shop</a>
-        <span>/</span>
-        <span>{{ product.title }}</span>
-    </nav>
+    {% comment %} ===== HERO ===== {% endcomment %}
+    <section class="hero">
+        <h1>Welcome to {{ shop.name }}</h1>
+        <p>Discover our premium collection of baby essentials, crafted with love and care for your little ones.</p>
+    </section>
 
-    {% comment %} ===== PRODUCT ===== {% endcomment %}
-    <main class="custom-product-container">
+    {% comment %} ===== PRODUCTS GRID ===== {% endcomment %}
+    <section class="products-section">
+        <h2 class="section-title">Our Products</h2>
         
-        {% comment %} LEFT: IMAGES {% endcomment %}
-        <div class="custom-product-image">
-            {% if product.featured_image %}
-                <img 
-                    src="{{ product.featured_image | image_url: width: 800 }}" 
-                    srcset="{{ product.featured_image | image_url: width: 400 }} 400w,
-                            {{ product.featured_image | image_url: width: 800 }} 800w,
-                            {{ product.featured_image | image_url: width: 1200 }} 1200w"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    alt="{{ product.featured_image.alt | escape }}"
-                    class="custom-main-image"
-                    id="mainImage"
-                    loading="eager"
-                >
-            {% else %}
-                {{ 'product-1' | placeholder_svg_tag: 'custom-main-image' }}
-            {% endif %}
-
-            {% comment %} Thumbnail Gallery {% endcomment %}
-            {% if product.images.size > 1 %}
-                <div class="custom-gallery">
-                    {% for image in product.images limit: 5 %}
+        <div class="product-grid">
+            {% comment %} Loop through all products {% endcomment %}
+            {% for product in collections.all.products limit: 12 %}
+                
+                <a href="{{ product.url }}" class="product-card">
+                    {% comment %} Product Image {% endcomment %}
+                    {% if product.featured_image %}
                         <img 
-                            src="{{ image | image_url: width: 150 }}" 
-                            alt="{{ image.alt | escape }}"
-                            class="custom-gallery-thumb {% if forloop.first %}active{% endif %}"
-                            onclick="changeImage('{{ image | image_url: width: 800 }}', this)"
+                            src="{{ product.featured_image | image_url: width: 400 }}" 
+                            alt="{{ product.title | escape }}"
+                            class="card-image"
                             loading="lazy"
                         >
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </div>
-
-        {% comment %} RIGHT: DETAILS {% endcomment %}
-        <div class="custom-product-details">
-            
-            <h1 class="custom-product-title">{{ product.title }}</h1>
-            
-            <div class="custom-product-price" id="priceDisplay">
-                <span id="currentPrice">{{ product.selected_or_first_available_variant.price | money }}</span>
-                {% if product.compare_at_price > product.price %}
-                    <span class="custom-compare-price" id="comparePrice">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
-                {% endif %}
-            </div>
-
-            {% comment %} Reviews Badge {% endcomment %}
-            <div class="custom-product-rating">
-                <span class="custom-stars">★★★★★</span>
-                <span class="custom-review-count">
-                    {% if product.metafields.reviews.rating_count %}
-                        ({{ product.metafields.reviews.rating_count }} reviews)
                     {% else %}
-                        (0 reviews)
-                    {% endif %}
-                </span>
-            </div>
-
-            {% comment %} Description {% endcomment %}
-            <div class="custom-product-description">
-                {{ product.description | strip_html | truncatewords: 40 }}
-            </div>
-
-            {% comment %} Messages {% endcomment %}
-            <div class="custom-message" id="message"></div>
-
-            {% comment %} ADD TO CART FORM {% endcomment %}
-            <form class="custom-add-to-cart-form" id="productForm">
-                
-                {% comment %} Variants {% endcomment %}
-                {% if product.variants.size > 1 %}
-                    <div class="custom-variant-section">
-                        <label class="custom-section-label">
-                            {{ product.options.first | default: 'Select Option' }}
-                        </label>
-                        
-                        <div class="custom-variant-options" id="variantButtons">
-                            {% for variant in product.variants %}
-                                <button 
-                                    type="button"
-                                    class="custom-variant-btn {% if variant.id == product.selected_or_first_available_variant.id %}active{% endif %}"
-                                    data-variant-id="{{ variant.id }}"
-                                    data-price="{{ variant.price }}"
-                                    data-compare-price="{{ variant.compare_at_price | default: 0 }}"
-                                    data-sku="{{ variant.sku }}"
-                                    data-available="{{ variant.available }}"
-                                    {% unless variant.available %}disabled{% endunless %}
-                                    onclick="selectVariant(this)"
-                                >
-                                    {{ variant.title }}
-                                </button>
-                            {% endfor %}
+                        <div class="card-image" style="display: flex; align-items: center; justify-content: center; color: #999;">
+                            No Image
                         </div>
-                    </div>
-                {% endif %}
-
-                {% comment %} Hidden Inputs {% endcomment %}
-                <input type="hidden" name="id" id="variantId" value="{{ product.selected_or_first_available_variant.id }}">
-                
-                {% comment %} Quantity {% endcomment %}
-                <div class="custom-quantity-section">
-                    <label class="custom-section-label">Quantity</label>
-                    <div class="custom-quantity-selector">
-                        <button type="button" class="custom-qty-btn" onclick="updateQty(-1)">−</button>
-                        <input 
-                            type="number" 
-                            name="quantity" 
-                            class="custom-qty-input" 
-                            value="1" 
-                            id="quantity" 
-                            min="1" 
-                            max="99"
-                            readonly
-                        >
-                        <button type="button" class="custom-qty-btn" onclick="updateQty(1)">+</button>
-                    </div>
-                </div>
-
-                {% comment %} Submit Button {% endcomment %}
-                <button 
-                    type="submit" 
-                    class="custom-add-to-cart" 
-                    id="addToCartBtn"
-                    {% unless product.available %}disabled{% endunless %}
-                >
-                    {% if product.available %}
-                        <span>Add to Cart — </span>
-                        <span id="btnPrice">{{ product.selected_or_first_available_variant.price | money }}</span>
-                    {% else %}
-                        Sold Out
                     {% endif %}
-                </button>
-            </form>
-
-            {% comment %} Features from Tags {% endcomment %}
-            {% assign feature_tags = product.tags | where: 'feature_' %}
-            {% if feature_tags.size > 0 %}
-                <ul class="custom-features-list">
-                    {% for tag in feature_tags %}
-                        <li class="custom-feature-item">
-                            <span class="custom-check-icon">✓</span>
-                            <span>{{ tag | remove: 'feature_' | replace: '_', ' ' }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
+                    
+                    <div class="card-content">
+                        {% comment %} Product Title {% endcomment %}
+                        <h3 class="card-title">{{ product.title }}</h3>
+                        
+                        {% comment %} Product Price {% endcomment %}
+                        <div class="card-price">
+                            {{ product.price | money }}
+                            {% if product.compare_at_price > product.price %}
+                                <span class="card-compare-price">{{ product.compare_at_price | money }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        {% comment %} Sale Badge {% endcomment %}
+                        {% if product.compare_at_price > product.price %}
+                            <span class="card-badge">Sale</span>
+                        {% endif %}
+                        
+                        {% comment %} New Badge {% endcomment %}
+                        {% if product.tags contains 'new' %}
+                            <span class="card-badge" style="background-color: #4a7c59;">New</span>
+                        {% endif %}
+                    </div>
+                </a>
+                
             {% else %}
-                {% comment %} Default Features {% endcomment %}
-                <ul class="custom-features-list">
-                    <li class="custom-feature-item">
-                        <span class="custom-check-icon">✓</span>
-                        <span>Premium Quality</span>
-                    </li>
-                    <li class="custom-feature-item">
-                        <span class="custom-check-icon">✓</span>
-                        <span>Fast Shipping</span>
-                    </li>
-                    <li class="custom-feature-item">
-                        <span class="custom-check-icon">✓</span>
-                        <span>Secure Payment</span>
-                    </li>
-                </ul>
-            {% endif %}
-
-            {% comment %} Product Meta {% endcomment %}
-            <div class="custom-product-meta">
-                {% if product.vendor %}
-                    <div class="custom-meta-item">
-                        <span class="custom-meta-label">Brand:</span> {{ product.vendor }}
-                    </div>
-                {% endif %}
-                
-                <div class="custom-meta-item">
-                    <span class="custom-meta-label">SKU:</span> 
-                    <span id="skuDisplay">{{ product.selected_or_first_available_variant.sku }}</span>
+                {% comment %} No products found {% endcomment %}
+                <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #666;">
+                    <p>No products found. Add some products to your store!</p>
                 </div>
-                
-                {% if product.type %}
-                    <div class="custom-meta-item">
-                        <span class="custom-meta-label">Type:</span> {{ product.type }}
-                    </div>
-                {% endif %}
-            </div>
-
+            {% endfor %}
         </div>
-    </main>
+    </section>
 
-    {% comment %} ===== JAVASCRIPT ===== {% endcomment %}
-    <script>
-        // ===== IMAGE GALLERY =====
-        function changeImage(src, thumb) {
-            const mainImage = document.getElementById('mainImage');
-            mainImage.style.opacity = '0.5';
-            
-            setTimeout(() => {
-                mainImage.src = src;
-                mainImage.style.opacity = '1';
-            }, 150);
-            
-            // Update active thumbnail
-            document.querySelectorAll('.custom-gallery-thumb').forEach(t => {
-                t.classList.remove('active');
-            });
-            thumb.classList.add('active');
-        }
-
-        // ===== VARIANT SELECTION =====
-        function selectVariant(btn) {
-            if (btn.disabled) return;
-            
-            const variantId = btn.dataset.variantId;
-            const price = parseInt(btn.dataset.price);
-            const comparePrice = parseInt(btn.dataset.comparePrice);
-            const sku = btn.dataset.sku;
-            const available = btn.dataset.available === 'true';
-            
-            // Update hidden input
-            document.getElementById('variantId').value = variantId;
-            
-            // Update active state
-            document.querySelectorAll('.custom-variant-btn').forEach(b => {
-                b.classList.remove('active');
-            });
-            btn.classList.add('active');
-            
-            // Update price display
-            const priceDisplay = document.getElementById('currentPrice');
-            const compareDisplay = document.getElementById('comparePrice');
-            const btnPrice = document.getElementById('btnPrice');
-            
-            // Format price
-            const formatMoney = (cents) => {
-                return '$' + (cents / 100).toFixed(2);
-            };
-            
-            priceDisplay.textContent = formatMoney(price);
-            if (btnPrice) btnPrice.textContent = formatMoney(price);
-            
-            if (comparePrice > 0) {
-                if (compareDisplay) {
-                    compareDisplay.textContent = formatMoney(comparePrice);
-                    compareDisplay.style.display = 'inline';
-                } else {
-                    const priceContainer = document.getElementById('priceDisplay');
-                    priceContainer.innerHTML = `
-                        <span id="currentPrice">${formatMoney(price)}</span>
-                        <span class="custom-compare-price" id="comparePrice">${formatMoney(comparePrice)}</span>
-                    `;
-                }
-            } else if (compareDisplay) {
-                compareDisplay.style.display = 'none';
-            }
-            
-            // Update SKU
-            document.getElementById('skuDisplay').textContent = sku || 'N/A';
-            
-            // Update button state
-            const addBtn = document.getElementById('addToCartBtn');
-            if (available) {
-                addBtn.disabled = false;
-                addBtn.innerHTML = `<span>Add to Cart — </span><span id="btnPrice">${formatMoney(price)}</span>`;
-            } else {
-                addBtn.disabled = true;
-                addBtn.textContent = 'Sold Out';
-            }
-        }
-
-        // ===== QUANTITY =====
-        function updateQty(change) {
-            const input = document.getElementById('quantity');
-            let newVal = parseInt(input.value) + change;
-            
-            if (newVal < 1) newVal = 1;
-            if (newVal > 99) newVal = 99;
-            
-            input.value = newVal;
-        }
-
-        // ===== FORM SUBMISSION =====
-        document.getElementById('productForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const form = this;
-            const btn = document.getElementById('addToCartBtn');
-            const message = document.getElementById('message');
-            const originalText = btn.innerHTML;
-            
-            // Loading state
-            btn.classList.add('loading');
-            btn.innerHTML = 'Adding...';
-            
-            try {
-                const formData = new FormData(form);
-                
-                // Add to cart using Shopify AJAX API
-                const response = await fetch('/cart/add.js', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const data = await response.json();
-                
-                if (data.id) {
-                    // Success
-                    showMessage('Product added to cart!', 'success');
-                    
-                    // Update cart count
-                    updateCartCount();
-                    
-                    // Reset button after 2 seconds
-                    setTimeout(() => {
-                        btn.classList.remove('loading');
-                        btn.innerHTML = originalText;
-                    }, 2000);
-                } else {
-                    throw new Error(data.description || 'Error adding to cart');
-                }
-                
-            } catch (error) {
-                btn.classList.remove('loading');
-                btn.innerHTML = originalText;
-                showMessage(error.message, 'error');
-            }
-        });
-
-        // ===== CART COUNT UPDATE =====
-        async function updateCartCount() {
-            try {
-                const response = await fetch('/cart.js');
-                const cart = await response.json();
-                
-                let badge = document.getElementById('cartCount');
-                
-                if (!badge) {
-                    // Create badge if doesn't exist
-                    const cartLink = document.querySelector('.custom-cart');
-                    badge = document.createElement('span');
-                    badge.className = 'cart-badge';
-                    badge.id = 'cartCount';
-                    cartLink.appendChild(badge);
-                }
-                
-                badge.textContent = cart.item_count;
-                badge.style.display = cart.item_count > 0 ? 'block' : 'none';
-                
-            } catch (error) {
-                console.error('Error updating cart:', error);
-            }
-        }
-
-        // ===== MESSAGE DISPLAY =====
-        function showMessage(text, type) {
-            const message = document.getElementById('message');
-            message.textContent = text;
-            message.className = 'custom-message ' + type;
-            message.style.display = 'block';
-            
-            setTimeout(() => {
-                message.style.display = 'none';
-            }, 3000);
-        }
-    </script>
+    {% comment %} ===== FOOTER ===== {% endcomment %}
+    <footer class="footer">
+        <p>&copy; {{ "now" | date: "%Y" }} {{ shop.name }}. All rights reserved.</p>
+    </footer>
 
 </body>
 </html>
