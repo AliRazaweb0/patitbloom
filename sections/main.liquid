@@ -582,7 +582,7 @@
   <!-- Pehle 4 Products (Hamesha Visible) -->
   <div class="products-grid" id="initial-products">
     {% for product in collections.all.products limit: 4 %}
-      <a href="{{ product.url }}" class="product-card">
+      <a href="{{ productcotton-sun-hat }}" class="product-card">
         <div class="image-wrapper">
           <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}">
         </div>
