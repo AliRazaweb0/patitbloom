@@ -1,359 +1,274 @@
-<!-- templates/product.liquid -->
+{% comment %}
+  HOME PAGE - Product Cards Grid
+  Ali Jutt Store
+{% endcomment %}
 
-{% if product.handle == 'cloud-sleep-sack' %}
-  
-  <!-- Custom Product Page - Cloud Sleep Sack Style -->
-  <div class="product-page">
-    <div class="product-container">
-      
-      <!-- Left Side - Product Image -->
-      <div class="product-image-section">
-        <div class="image-wrapper">
-          <img src="{{ product.featured_image | img_url: 'large' }}" alt="{{ product.title }}" id="product-image">
-        </div>
-      </div>
-
-      <!-- Right Side - Product Details -->
-      <div class="product-details-section">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ shop.name }} - Home</title>
+    {{ content_for_header }}
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        <!-- Product Title -->
-        <h1 class="product-title">{{ product.title }}</h1>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #faf9f7; 
+            color: #333; 
+        }
         
-        <!-- Product Price -->
-        <div class="product-price">${{ product.price | money_without_currency }}</div>
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #faf9f7;
+            border-bottom: 1px solid #e8e6e3;
+        }
         
-        <!-- 5 Star Rating -->
-        <div class="product-rating">
-          <span class="stars">★★★★★</span>
-          <span class="review-count">({{ product.metafields.reviews.rating_count | default: '1' }} reviews)</span>
-        </div>
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: #5c4b37;
+            font-family: Georgia, serif;
+            text-decoration: none;
+        }
+        
+        .nav { display: flex; gap: 30px; }
+        .nav a { text-decoration: none; color: #666; font-size: 14px; }
+        .nav a:hover { color: #5c4b37; }
+        
+        .cart-icon {
+            font-size: 20px;
+            cursor: pointer;
+            position: relative;
+            text-decoration: none;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #8b6f47;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background-color: #f5f3f0;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            color: #3d3226;
+            font-family: Georgia, serif;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 60px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            color: #3d3226;
+            font-family: Georgia, serif;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        /* Product Card */
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            background-color: #f0eeeb;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #3d3226;
+            margin-bottom: 8px;
+            font-family: Georgia, serif;
+        }
+        
+        .card-price {
+            font-size: 20px;
+            color: #8b6f47;
+            font-weight: 600;
+        }
+        
+        .card-compare-price {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+        
+        .card-badge {
+            display: inline-block;
+            background-color: #8b6f47;
+            color: white;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #3d3226;
+            color: #ccc;
+            padding: 40px 50px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header { padding: 15px 20px; }
+            .nav { display: none; }
+            .hero h1 { font-size: 32px; }
+            .products-section { padding: 40px 20px; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .card-image { height: 200px; }
+        }
+    </style>
+</head>
+<body>
 
-        <!-- Short Description -->
-        <p class="product-short-description">
-          {{ product.description | strip_html | truncatewords: 20 }}
-        </p>
+    {% comment %} ===== HEADER ===== {% endcomment %}
+    <header class="header">
+        <a href="/" class="logo">{{ shop.name }}</a>
+        <nav class="nav">
+            <a href="/">Home</a>
+            <a href="/collections/all">Shop</a>
+            <a href="/pages/about">About</a>
+            <a href="/pages/contact">Contact</a>
+        </nav>
+        <a href="/cart" class="cart-icon">
+            🛒
+            {% if cart.item_count > 0 %}
+                <span class="cart-count">{{ cart.item_count }}</span>
+            {% endif %}
+        </a>
+    </header>
 
-        <!-- Size Selector -->
-        <div class="size-section">
-          <label class="section-label">Size</label>
-          <div class="size-options">
-            {% for variant in product.variants %}
-              <button class="size-btn {% if forloop.first %}active{% endif %}" 
-                      data-variant-id="{{ variant.id }}"
-                      data-size="{{ variant.title }}">
-                {{ variant.title }}
-              </button>
+    {% comment %} ===== HERO ===== {% endcomment %}
+    <section class="hero">
+        <h1>Welcome to {{ shop.name }}</h1>
+        <p>Discover our premium collection of baby essentials, crafted with love and care for your little ones.</p>
+    </section>
+
+    {% comment %} ===== PRODUCTS GRID ===== {% endcomment %}
+    <section class="products-section">
+        <h2 class="section-title">Our Products</h2>
+        
+        <div class="product-grid">
+            {% comment %} Loop through all products {% endcomment %}
+            {% for product in collections.all.products limit: 12 %}
+                
+                <a href="{{ product.url }}" class="product-card">
+                    {% comment %} Product Image {% endcomment %}
+                    {% if product.featured_image %}
+                        <img 
+                            src="{{ product.featured_image | image_url: width: 400 }}" 
+                            alt="{{ product.title | escape }}"
+                            class="card-image"
+                            loading="lazy"
+                        >
+                    {% else %}
+                        <div class="card-image" style="display: flex; align-items: center; justify-content: center; color: #999;">
+                            No Image
+                        </div>
+                    {% endif %}
+                    
+                    <div class="card-content">
+                        {% comment %} Product Title {% endcomment %}
+                        <h3 class="card-title">{{ product.title }}</h3>
+                        
+                        {% comment %} Product Price {% endcomment %}
+                        <div class="card-price">
+                            {{ product.price | money }}
+                            {% if product.compare_at_price > product.price %}
+                                <span class="card-compare-price">{{ product.compare_at_price | money }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        {% comment %} Sale Badge {% endcomment %}
+                        {% if product.compare_at_price > product.price %}
+                            <span class="card-badge">Sale</span>
+                        {% endif %}
+                        
+                        {% comment %} New Badge {% endcomment %}
+                        {% if product.tags contains 'new' %}
+                            <span class="card-badge" style="background-color: #4a7c59;">New</span>
+                        {% endif %}
+                    </div>
+                </a>
+                
+            {% else %}
+                {% comment %} No products found {% endcomment %}
+                <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: #666;">
+                    <p>No products found. Add some products to your store!</p>
+                </div>
             {% endfor %}
-          </div>
         </div>
+    </section>
 
-        <!-- Quantity Selector -->
-        <div class="quantity-section">
-          <label class="section-label">Quantity</label>
-          <div class="quantity-selector">
-            <button class="qty-btn minus" onclick="decreaseQty()">−</button>
-            <input type="number" id="quantity" value="1" min="1" class="qty-input">
-            <button class="qty-btn plus" onclick="increaseQty()">+</button>
-          </div>
-        </div>
+    {% comment %} ===== FOOTER ===== {% endcomment %}
+    <footer class="footer">
+        <p>&copy; {{ "now" | date: "%Y" }} {{ shop.name }}. All rights reserved.</p>
+    </footer>
 
-        <!-- Add to Cart Button -->
-        <button class="add-to-cart-btn" onclick="addToCart()">
-          Add to Cart — ${{ product.price | money_without_currency }}
-        </button>
-
-        <!-- Product Features -->
-        <div class="product-features">
-          <div class="feature-item">
-            <span class="check-icon">✓</span>
-            <span>TOG 1.0</span>
-          </div>
-          <div class="feature-item">
-            <span class="check-icon">✓</span>
-            <span>Hip-healthy design</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    .product-page {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #faf9f7;
-      padding: 40px 20px;
-    }
-
-    .product-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
-    }
-
-    .product-image-section {
-      position: sticky;
-      top: 20px;
-    }
-
-    .image-wrapper {
-      background: #b8e6f0;
-      border-radius: 20px;
-      overflow: hidden;
-      aspect-ratio: 1;
-    }
-
-    .image-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .product-details-section {
-      padding-top: 20px;
-    }
-
-    .product-title {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 42px;
-      color: #2c2c2c;
-      margin-bottom: 15px;
-      font-weight: 400;
-      letter-spacing: -0.5px;
-    }
-
-    .product-price {
-      font-size: 28px;
-      color: #2c2c2c;
-      margin-bottom: 12px;
-      font-weight: 400;
-    }
-
-    .product-rating {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 25px;
-    }
-
-    .stars {
-      color: #8b7355;
-      font-size: 16px;
-      letter-spacing: 2px;
-    }
-
-    .review-count {
-      color: #888;
-      font-size: 14px;
-    }
-
-    .product-short-description {
-      color: #666;
-      font-size: 16px;
-      line-height: 1.6;
-      margin-bottom: 30px;
-    }
-
-    .size-section {
-      margin-bottom: 25px;
-    }
-
-    .section-label {
-      display: block;
-      font-size: 14px;
-      color: #2c2c2c;
-      margin-bottom: 12px;
-      font-weight: 500;
-    }
-
-    .size-options {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .size-btn {
-      padding: 12px 24px;
-      border: 1px solid #ddd;
-      background: transparent;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 14px;
-      color: #666;
-      transition: all 0.3s ease;
-    }
-
-    .size-btn:hover {
-      border-color: #8b7355;
-      color: #8b7355;
-    }
-
-    .size-btn.active {
-      background: #8b7355;
-      color: white;
-      border-color: #8b7355;
-    }
-
-    .quantity-section {
-      margin-bottom: 25px;
-    }
-
-    .quantity-selector {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      width: fit-content;
-    }
-
-    .qty-btn {
-      width: 45px;
-      height: 45px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      font-size: 18px;
-      color: #666;
-      transition: background 0.3s ease;
-    }
-
-    .qty-btn:hover {
-      background: #f5f5f5;
-    }
-
-    .qty-input {
-      width: 50px;
-      height: 45px;
-      border: none;
-      text-align: center;
-      font-size: 16px;
-      color: #2c2c2c;
-      -moz-appearance: textfield;
-    }
-
-    .qty-input::-webkit-outer-spin-button,
-    .qty-input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    .add-to-cart-btn {
-      width: 100%;
-      padding: 18px 30px;
-      background: #8b7355;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      margin-bottom: 30px;
-    }
-
-    .add-to-cart-btn:hover {
-      background: #6b5a45;
-    }
-
-    .product-features {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .feature-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #666;
-      font-size: 14px;
-    }
-
-    .check-icon {
-      color: #8b7355;
-      font-weight: bold;
-    }
-
-    @media (max-width: 768px) {
-      .product-container {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-
-      .product-image-section {
-        position: relative;
-      }
-
-      .product-title {
-        font-size: 32px;
-      }
-    }
-  </style>
-
-  <script>
-    // Size selection
-    document.querySelectorAll('.size-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-      });
-    });
-
-    // Quantity functions
-    function increaseQty() {
-      var input = document.getElementById('quantity');
-      input.value = parseInt(input.value) + 1;
-    }
-
-    function decreaseQty() {
-      var input = document.getElementById('quantity');
-      if (parseInt(input.value) > 1) {
-        input.value = parseInt(input.value) - 1;
-      }
-    }
-
-    // Add to cart function
-    function addToCart() {
-      var activeBtn = document.querySelector('.size-btn.active');
-      var variantId = activeBtn.getAttribute('data-variant-id');
-      var quantity = document.getElementById('quantity').value;
-      
-      fetch('/cart/add.js', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          items: [{
-            id: parseInt(variantId),
-            quantity: parseInt(quantity)
-          }]
-        })
-      })
-      .then(response => response.json())
-      .then(data => {
-        alert('Added to cart!');
-        // window.location.href = '/cart';
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-    }
-  </script>
-
-{% else %}
-  
-  <!-- Default Product Page (baqi sab products ke liye) -->
-  {% section 'product-template' %}
-  
-{% endif %}
+</body>
+</html>
